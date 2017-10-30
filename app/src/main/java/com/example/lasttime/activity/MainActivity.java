@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     Button forcallinfo;//同步通话记录按钮
     Button forsetkinandkith;//设置亲情账号
     Button forphoto;//通过拍照记录
+    Button youlasttime;
     TextView testtext;//用作测试
     String mImagePath;//图片的真实地址
     String mImagePath2;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         forcallinfo = (Button)findViewById(R.id.forcallinfo);
         forsetkinandkith=(Button)findViewById(R.id.setkinandkith);
         forphoto=(Button)findViewById(R.id.forphoto);
+        youlasttime=(Button)findViewById(R.id.you_lasttime);
         testtext=(TextView)findViewById(R.id.test_text);
         CallInfoService callInfoService = new CallInfoService(dbHelper);
         callInfoService.getCallinfos();
@@ -103,6 +105,13 @@ public class MainActivity extends AppCompatActivity {
                 IDUDDatebase idudDatebase = new IDUDDatebase("KITH_AND_KIN",dbHelper);
                 List<CallInfo> list = idudDatebase.selectAll();
                 testtext.setText(list.get(0).getCall());
+            }
+        });
+        youlasttime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this,LogSheetActivity.class);
+                startActivity(intent);
             }
         });
     }
