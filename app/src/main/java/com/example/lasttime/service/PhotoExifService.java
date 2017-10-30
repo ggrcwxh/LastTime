@@ -7,7 +7,7 @@ import com.example.lasttime.domain.PhotoInfo;
 import java.io.IOException;
 
 /**
- * Created by 吴晓晖 on 2017/10/27.
+ * Created by ggrc on 2017/10/27.
  * 此类用于读取照片中的exif信息，是PhotoInfo的行为类
  */
 

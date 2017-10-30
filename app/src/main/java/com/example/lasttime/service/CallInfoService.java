@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by 吴晓晖 on 2017/10/27.
+ * Created by ggrc on 2017/10/27.
  * 此类用于读取通话信息以及将信息筛选存入数据库，是CallInfo行为类
  */
 

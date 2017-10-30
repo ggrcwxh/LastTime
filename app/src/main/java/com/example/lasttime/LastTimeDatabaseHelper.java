@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by 67014 on 2017/10/27.
+ * Created by ggrc on 2017/10/27.
  */
 
 public class LastTimeDatabaseHelper extends SQLiteOpenHelper {

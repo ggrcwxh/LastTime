@@ -1,7 +1,7 @@
 package com.example.lasttime.domain;
 
 /**
- * Created by 吴晓晖 on 2017/10/27.
+ * Created by ggrc on 2017/10/27.
  * 此类是图片信息数据类
  */
 
@@ -10,7 +10,12 @@ public class PhotoInfo {
     private String photo_path;
     private long date;
     private int frequency;
+    public PhotoInfo(String place,String photo_path,long date,int frequency){
 
+    }
+    public PhotoInfo(){
+
+    }
     public String getPlace() {
         return place;
     }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by 吴晓晖 on 2017/10/27.
+ * Created by ggrc on 2017/10/27.
  * 此类用于数据库的增删改查
  */
 
@@ -77,24 +77,40 @@ public class IDUDDatebase {
         }
         return 0;
     }
-    //专门用来查询所有表中的所有行
-    public List<CallInfo> selectAll(){
+    //专门用来查询KITH_AND_KIN表中的所有行
+    public List<CallInfo> selectAll() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        if(table.equals("KITH_AND_KIN")){
+        if (table.equals("KITH_AND_KIN")) {
             List<CallInfo> callInfos = new ArrayList<CallInfo>();
-            Cursor cursor = db.query(table,null,null,null,null,null,null);
+            Cursor cursor = db.query(table, null, null, null, null, null, null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
-                        CallInfo callInfo = new CallInfo(cursor.getString(0),cursor.getString(1),cursor.getLong(2),cursor.getLong(3));
-                        callInfos.add(callInfo);
+                    CallInfo callInfo = new CallInfo(cursor.getString(0), cursor.getString(1), cursor.getLong(2), cursor.getLong(3));
+                    callInfos.add(callInfo);
 
                 } while (cursor.moveToNext());
-                return callInfos;
+
             }
+            return callInfos;
 
         }
         return null;
     }
+    //专门用来查询PHOTO表中所有行
+    public List<PhotoInfo> selectAll2(){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if (table.equals("PHOTO")) {
+            List<PhotoInfo> photoInfos = new ArrayList<PhotoInfo>();
+            Cursor cursor = db.query(table, null, null, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do{
+                    PhotoInfo photoInfo = new PhotoInfo(cursor.getString(0),cursor.getString(1),cursor.getLong(2),cursor.getInt(3));
+                }while(cursor.moveToNext());
 
+            }
+            return photoInfos;
+     }
 
+        return null;
+    }
 }

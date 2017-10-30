@@ -14,7 +14,7 @@ import com.example.lasttime.service.CallInfoService;
 import com.example.lasttime.service.IDUDDatebase;
 
 /**
- * Created by 吴晓晖 on 2017/10/27.
+ * Created by ggrc on 2017/10/27.
  */
 
 public class SetKinAndKithActivity extends AppCompatActivity {
