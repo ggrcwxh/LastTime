@@ -142,8 +142,9 @@ public class MainActivity extends AppCompatActivity {
                 );
             }
             PhotoExifService photoExifService = new PhotoExifService(mImagePath);
-            String temp =photoExifService.getDateLatitudeLongitude();
-            testtext.setText(temp);
+            //String temp =
+            photoExifService.getDateLatitudeLongitude();
+            //testtext.setText(temp);
 
         }
     }
