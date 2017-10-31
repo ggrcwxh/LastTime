@@ -1,5 +1,9 @@
 package com.example.lasttime.service;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,10 +12,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.Date;
+
 
 /**
- * Created by 67014 on 2017/10/31.
+ * Created by ggrc on 2017/10/31.
  */
 
 public class HttpToBaiDuMapService implements Runnable {
@@ -42,6 +46,7 @@ public class HttpToBaiDuMapService implements Runnable {
                 reponse.append(line);
             }
             String s=reponse.toString();
+            parseJSONWithJSONObject(s);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -49,6 +54,27 @@ public class HttpToBaiDuMapService implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+    private void parseJSONWithJSONObject(String s){
+        String formatted_address;
+        String recommended_location_description;
+        String address;
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            formatted_address = jsonObject.getString("formatted_address");
+            recommended_location_description = jsonObject.getString("recommended_location_description");
+            JSONObject jsonObject1 = jsonObject.getJSONObject("address_component");
+            if((address=jsonObject1.getString("street"))==null){
+                address= jsonObject.getString("district");
+            }
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
     }
 }
