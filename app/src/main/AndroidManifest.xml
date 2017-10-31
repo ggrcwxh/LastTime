@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.SetKinAndKithActivity"></activity>
-        <activity android:name=".activity.LogSheetActivity"></activity>
+        <activity android:name=".activity.UserLastTimeActivity"></activity>
     </application>
 
 

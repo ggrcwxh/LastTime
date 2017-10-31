@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     >
 
-    <android.support.v7.widget.ListViewCompat
-        android:id="@+id/log_list_view"
+    <ListView
+        android:id="@+id/user_last_time"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.ListViewCompat>
+    </ListView>
 </LinearLayout>

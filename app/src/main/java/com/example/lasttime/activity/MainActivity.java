@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         youlasttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(MainActivity.this,LogSheetActivity.class);
+                Intent intent =new Intent(MainActivity.this,UserLastTimeActivity.class);
                 startActivity(intent);
             }
         });
