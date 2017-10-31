@@ -125,6 +125,7 @@ public class IDUDDatebase {
             if (cursor != null && cursor.moveToFirst()) {
                 do{
                     PhotoInfo photoInfo = new PhotoInfo(cursor.getString(0),cursor.getString(1),cursor.getLong(2),cursor.getInt(3));
+                    photoInfos.add(photoInfo);
                 }while(cursor.moveToNext());
 
             }

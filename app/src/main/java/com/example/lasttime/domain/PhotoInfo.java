@@ -11,7 +11,10 @@ public class PhotoInfo {
     private long date;
     private int frequency;
     public PhotoInfo(String place,String photo_path,long date,int frequency){
-
+          this.place=place;
+          this.photo_path=photo_path;
+          this.date=date;
+          this.frequency=frequency;
     }
     public PhotoInfo(){
 

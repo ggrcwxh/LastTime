@@ -69,13 +69,13 @@ public class HttpToBaiDuMapService implements Runnable {
         String address;
         try {
             JSONObject jsonObject = new JSONObject(s);
-            formatted_address = jsonObject.getString("formatted_address");
-            recommended_location_description = jsonObject.getString("recommended_location_description");
+            //formatted_address = jsonObject.getString("formatted_address");
+            //recommended_location_description = jsonObject.getString("recommended_location_description");
             JSONObject jsonObject1 = jsonObject.getJSONObject("address_component");
             if((address=jsonObject1.getString("street"))==null){
                 address= jsonObject.getString("district");
             }
-            updateToDatabase(s);
+            updateToDatabase(address);
 
 
 

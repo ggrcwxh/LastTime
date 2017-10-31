@@ -36,7 +36,7 @@ public class PhotoExifService {
                 String latRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
                 String lngRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
                 //把String类型变换为Date类型
-                String formatType="yyyy-MM-dd HH:mm:ss";
+                String formatType="yyyy:MM:dd HH:mm:ss";
                 SimpleDateFormat formatter = new SimpleDateFormat(formatType);
                 Date ndate = null;
                 try {
