@@ -46,7 +46,12 @@ public class IDUDDatebase {
             db.insert(table,null,values);
         }
         if(table.equals("PHOTO")){
-
+            ContentValues values = new ContentValues();
+            values.put("place",photoInfo.getPlace());
+            values.put("photo_path",photoInfo.getPhoto_path());
+            values.put("date",photoInfo.getDate());
+            values.put("frequency",photoInfo.getFrequency());
+            db.insert(table,null,values);
         }
         if(table.equals("WORD")){
 
@@ -61,6 +66,12 @@ public class IDUDDatebase {
             values.put("frequency",this.selectFrequency()+1);
             db.update("KITH_AND_KIN",values,"num=?",new String[] {callInfo.getNum()});
         }
+        if(table.equals("PHOTO")){
+            ContentValues values = new ContentValues();
+            values.put("date",photoInfo.getDate());
+            values.put("frequency",this.selectFrequency());
+            db.update(table,values,"place=?",new String[] {photoInfo.getPlace()});
+        }
     }
     //专门用于查询frequency
     public long selectFrequency() {
@@ -72,6 +83,15 @@ public class IDUDDatebase {
             Cursor cursor = db.query(table,temp,temp1,temp2,null,null,null);
             if (cursor != null && cursor.moveToFirst())
             {
+                return cursor.getLong(0);
+            }
+        }
+        if(table.equals("PHOTO")){
+            String[] temp={"frequency"};
+            String temp1 ="place=?";
+            String[] temp2={photoInfo.getPlace()};
+            Cursor cursor =db.query(table,temp,temp1,temp2,null,null,null);
+            if(cursor!=null&&cursor.moveToFirst()){
                 return cursor.getLong(0);
             }
         }

@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.List;
 
 
 /**
@@ -85,8 +86,19 @@ public class HttpToBaiDuMapService implements Runnable {
 
     }
     private void updateToDatabase(String s){
-        photoInfo = new PhotoInfo();
+        photoInfo = new PhotoInfo(s,photoPath,date,0);
         IDUDDatebase idudDatebase =new IDUDDatebase("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
+        List<PhotoInfo> list=idudDatebase.selectAll2();
+        boolean flag = false;
+        for(PhotoInfo attribute: list){
+            if(attribute.getPlace().equals(photoInfo.getPlace())){
+                idudDatebase.update();
+                flag=true;
+            }
+        }
+        if(flag==false){
+            idudDatebase.insert();
+        }
 
     }
 }
