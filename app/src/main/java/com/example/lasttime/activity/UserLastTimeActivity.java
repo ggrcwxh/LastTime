@@ -10,6 +10,7 @@ import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.service.CallInfoService;
 import com.example.lasttime.service.IDUDDatebase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.currentTimeMillis;
@@ -29,13 +30,17 @@ public class UserLastTimeActivity extends AppCompatActivity {
         callInfoService.updateKITH_AND_KIN();
         IDUDDatebase idudDatebase1=new IDUDDatebase("KITH_AND_KIN",MainActivity.dbHelper);
         List<CallInfo> list1 = idudDatebase1.selectAll();
-        String[] data =new String[50];
-        int i=0;
-        for(CallInfo attribute:list1){
-            data[i++]=String.format("您已距离和%s打电话有%d天了",attribute.getCall(),(currentTimeMillis()-attribute.getDate())/86400000);
+        List<String> data =new ArrayList<>();
+        if(list1.size()!=0){
+            for(CallInfo attribute:list1){
+                data.add(String.format("您已距离和%s打电话有%d天了",attribute.getCall(),(currentTimeMillis()-attribute.getDate())/86400000));
+            }
         }
+
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(UserLastTimeActivity.this,android.R.layout.simple_list_item_1,data);
         listView.setAdapter(adapter);
+
+
 
     }
 }

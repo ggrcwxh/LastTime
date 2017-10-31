@@ -82,7 +82,7 @@ public class CallInfoService {
         for(CallInfo attribute: this.callinfos){
             for(CallInfo attribute2: callinfos2){
                 if(attribute.getNum().equals(attribute2.getNum())&&attribute.getDate()>attribute2.getDate()){
-                    IDUDDatebase idudDatebase2 = new IDUDDatebase("KITH_AND_KIN",attribute,null,null,null);
+                    IDUDDatebase idudDatebase2 = new IDUDDatebase("KITH_AND_KIN",attribute,null,null,dbHelper);
                     idudDatebase2.update();
                 }
             }

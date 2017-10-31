@@ -59,7 +59,7 @@ public class IDUDDatebase {
             ContentValues values = new ContentValues();
             values.put("date",callInfo.getDate());
             values.put("frequency",this.selectFrequency()+1);
-            db.update("KITH_AND_KIN",values,"call=?",new String[] {callInfo.getCall()});
+            db.update("KITH_AND_KIN",values,"num=?",new String[] {callInfo.getNum()});
         }
     }
     //专门用于查询frequency
@@ -67,8 +67,8 @@ public class IDUDDatebase {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(table.equals("KITH_AND_KIN")){
             String[] temp ={"frequency"};
-            String temp1 = "name=?";
-            String[] temp2 ={callInfo.getCall()};
+            String temp1 = "num=?";
+            String[] temp2 ={callInfo.getNum()};
             Cursor cursor = db.query(table,temp,temp1,temp2,null,null,null);
             if (cursor != null && cursor.moveToFirst())
             {

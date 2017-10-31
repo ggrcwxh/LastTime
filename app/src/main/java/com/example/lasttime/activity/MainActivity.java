@@ -47,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstaceState){
 
         super.onCreate(savedInstaceState);
+        if (Build.VERSION.SDK_INT >= 23) {
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALL_LOG);
+            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CALL_LOG}, 333);
+            }
+        }
         setContentView(R.layout.main_activity_layout);
         forcallinfo = (Button)findViewById(R.id.forcallinfo);
         forsetkinandkith=(Button)findViewById(R.id.setkinandkith);
@@ -54,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         youlasttime=(Button)findViewById(R.id.you_lasttime);
         testtext=(TextView)findViewById(R.id.test_text);
         CallInfoService callInfoService = new CallInfoService(dbHelper);
-        callInfoService.getCallinfos();
+        callInfoService.getCallInfos();
         callInfoService.updateKITH_AND_KIN();
         forphoto.setOnClickListener(new View.OnClickListener() {
             @Override
