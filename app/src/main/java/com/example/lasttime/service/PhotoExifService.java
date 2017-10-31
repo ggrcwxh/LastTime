@@ -56,7 +56,7 @@ public class PhotoExifService {
                     output2 = convertRationalLatLonToFloat(lngValue, lngRef);
                 }
                 //将经纬度发送到另一个http线程中
-                HttpToBaiDuMapService httpToBaiDuMapService = new HttpToBaiDuMapService(output1,output2,nndate);
+                HttpToBaiDuMapService httpToBaiDuMapService = new HttpToBaiDuMapService(output1,output2,nndate,path);
                 new Thread(httpToBaiDuMapService).start();
 
             } catch (IOException e) {

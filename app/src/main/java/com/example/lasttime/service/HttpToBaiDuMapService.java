@@ -1,6 +1,9 @@
 package com.example.lasttime.service;
 
-import org.json.JSONArray;
+
+import com.example.lasttime.activity.MainActivity;
+import com.example.lasttime.domain.PhotoInfo;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,10 +25,13 @@ public class HttpToBaiDuMapService implements Runnable {
     float output1;
     float output2;
     long date;
-    public HttpToBaiDuMapService(float output1,float output2,long date){
+    PhotoInfo photoInfo;
+    String photoPath;
+    public HttpToBaiDuMapService(float output1,float output2,long date,String photoPath){
         this.output1=output1;
         this.output2=output2;
         this.date=date;
+        this.photoPath= photoPath;
     }
     @Override
     public void run(){
@@ -68,6 +74,7 @@ public class HttpToBaiDuMapService implements Runnable {
             if((address=jsonObject1.getString("street"))==null){
                 address= jsonObject.getString("district");
             }
+            updateToDatabase(s);
 
 
 
@@ -75,6 +82,11 @@ public class HttpToBaiDuMapService implements Runnable {
             e.printStackTrace();
         }
 
+
+    }
+    private void updateToDatabase(String s){
+        photoInfo = new PhotoInfo();
+        IDUDDatebase idudDatebase =new IDUDDatebase("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
 
     }
 }
