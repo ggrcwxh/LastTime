@@ -20,7 +20,9 @@ import com.example.lasttime.service.IDUDDatebase;
  */
 
 public class SetKinAndKithActivity extends AppCompatActivity {
-
+    Button add;
+    Button record;
+    Button set;
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
@@ -29,10 +31,36 @@ public class SetKinAndKithActivity extends AppCompatActivity {
         if(actionbar!=null){
             actionbar.hide();
         }
+        add=(Button)findViewById(R.id.title_add);
+        record=(Button)findViewById(R.id.title_record);
+        set=(Button)findViewById(R.id.title_set);
         final EditText calledittext = (EditText)findViewById(R.id.call_edit_text);
         final EditText numsedittext  =(EditText)findViewById(R.id.num_edit_text);
         Button back =(Button)findViewById(R.id.setkinandkith_back);
         Button confirm =(Button)findViewById(R.id.setkinandkith_confirm);
+        //点击拍照按钮的事件
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(SetKinAndKithActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(SetKinAndKithActivity.this,UserLastTimeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         confirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

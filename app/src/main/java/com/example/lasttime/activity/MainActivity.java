@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lasttime.LastTimeDatabaseHelper;
 import com.example.lasttime.MyApplication;
@@ -37,14 +38,17 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private final int RESULT_CAPTURE_CODE =200;
-    public static LastTimeDatabaseHelper dbHelper= new LastTimeDatabaseHelper(MyApplication.getContext(),"lasttime.db",null,1);
-    Button forphoto;//通过拍照记录
+    public static LastTimeDatabaseHelper dbHelper= new LastTimeDatabaseHelper(MyApplication.getContext(),"lasttime.db",null,1);//创建数据库
+    Button camera;//通过拍照记录
+    Button add;
+    Button record;
+    Button set;
     String mImagePath;//图片的真实地址
     String mImagePath2;
     @Override
     protected void onCreate(Bundle savedInstaceState){
-
         super.onCreate(savedInstaceState);
+        //动态获取通话记录权限
         if (Build.VERSION.SDK_INT >= 23) {
             int checkCallPhonePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALL_LOG);
             if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
@@ -52,16 +56,40 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         setContentView(R.layout.main_activity_layout);
+        //关掉标题栏
         ActionBar actionbar=getSupportActionBar();
         if(actionbar!=null){
             actionbar.hide();
         }
-
-        forphoto=(Button)findViewById(R.id.main_camera);
+        camera=(Button)findViewById(R.id.main_camera);
+        add=(Button)findViewById(R.id.title_add);
+        record=(Button)findViewById(R.id.title_record);
+        set=(Button)findViewById(R.id.title_set);
+        //执行读取通话记录，更新数据库
         CallInfoService callInfoService = new CallInfoService(dbHelper);
         callInfoService.getCallInfos();
         callInfoService.updateKITH_AND_KIN();
-        forphoto.setOnClickListener(new View.OnClickListener() {
+        //点击拍照按钮的事件
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this,UserLastTimeActivity.class);
+                startActivity(intent);
+            }
+        });
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this,SetKinAndKithActivity.class);
+                startActivity(intent);
+            }
+        });
+        camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss")
@@ -71,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 //通过将给定路径名字符串转换成抽象路径名来创建一个新 File 实例
                 //6.0后使用相机需要动态设置权限
                 mImagePath2=tmpCameraFile.getPath();
+                //动态获取打开相机权限
                 if (Build.VERSION.SDK_INT >= 23) {
                     int checkCallPhonePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA);
                     if(checkCallPhonePermission != PackageManager.PERMISSION_GRANTED){
@@ -119,10 +148,10 @@ public class MainActivity extends AppCompatActivity {
                         111
                 );
             }
+            //将照片地址送入读取exif相关类交给后台处理
             PhotoExifService photoExifService = new PhotoExifService(mImagePath);
-            //String temp =
             photoExifService.getDateLatitudeLongitude();
-            //testtext.setText(temp);
+            Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库",Toast.LENGTH_SHORT).show();
 
         }
     }

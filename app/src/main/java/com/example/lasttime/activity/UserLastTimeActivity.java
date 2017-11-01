@@ -1,10 +1,13 @@
 package com.example.lasttime.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.lasttime.R;
@@ -23,6 +26,9 @@ import static java.lang.System.currentTimeMillis;
  */
 
 public class UserLastTimeActivity extends AppCompatActivity {
+    Button add;
+    Button record;
+    Button set;
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
@@ -32,6 +38,31 @@ public class UserLastTimeActivity extends AppCompatActivity {
             actionbar.hide();
         }
         ListView listView = (ListView)findViewById(R.id.user_last_time);
+        add=(Button)findViewById(R.id.title_add);
+        record=(Button)findViewById(R.id.title_record);
+        set=(Button)findViewById(R.id.title_set);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(UserLastTimeActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserLastTimeActivity.this,SetKinAndKithActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         CallInfoService callInfoService = new CallInfoService(MainActivity.dbHelper);
         callInfoService.getCallinfos();
         callInfoService.updateKITH_AND_KIN();
