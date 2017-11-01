@@ -38,11 +38,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private final int RESULT_CAPTURE_CODE =200;
     public static LastTimeDatabaseHelper dbHelper= new LastTimeDatabaseHelper(MyApplication.getContext(),"lasttime.db",null,1);
-    Button forcallinfo;//同步通话记录按钮
-    Button forsetkinandkith;//设置亲情账号
     Button forphoto;//通过拍照记录
-    Button youlasttime;
-    TextView testtext;//用作测试
     String mImagePath;//图片的真实地址
     String mImagePath2;
     @Override
@@ -60,11 +56,8 @@ public class MainActivity extends AppCompatActivity {
         if(actionbar!=null){
             actionbar.hide();
         }
-        forcallinfo = (Button)findViewById(R.id.forcallinfo);
-        forsetkinandkith=(Button)findViewById(R.id.setkinandkith);
-        forphoto=(Button)findViewById(R.id.forphoto);
-        youlasttime=(Button)findViewById(R.id.you_lasttime);
-        testtext=(TextView)findViewById(R.id.test_text);
+
+        forphoto=(Button)findViewById(R.id.main_camera);
         CallInfoService callInfoService = new CallInfoService(dbHelper);
         callInfoService.getCallInfos();
         callInfoService.updateKITH_AND_KIN();
@@ -104,28 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        forsetkinandkith.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent intent =new Intent(MainActivity.this,SetKinAndKithActivity.class);
-                startActivity(intent);
-            }
-        });
-        forcallinfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IDUDDatebase idudDatebase = new IDUDDatebase("KITH_AND_KIN",dbHelper);
-                List<CallInfo> list = idudDatebase.selectAll();
-                testtext.setText(list.get(0).getCall());
-            }
-        });
-        youlasttime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =new Intent(MainActivity.this,UserLastTimeActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
