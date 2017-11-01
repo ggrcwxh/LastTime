@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
+    <include layout="@layout/title_layout"/>
     <ListView
         android:id="@+id/user_last_time"
         android:layout_width="match_parent"

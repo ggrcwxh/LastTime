@@ -1,7 +1,9 @@
 package com.example.lasttime.activity;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -25,6 +27,10 @@ public class UserLastTimeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
         setContentView(R.layout.user_lasttime_activity);
+        ActionBar actionbar=getSupportActionBar();
+        if(actionbar!=null){
+            actionbar.hide();
+        }
         ListView listView = (ListView)findViewById(R.id.user_last_time);
         CallInfoService callInfoService = new CallInfoService(MainActivity.dbHelper);
         callInfoService.getCallinfos();
