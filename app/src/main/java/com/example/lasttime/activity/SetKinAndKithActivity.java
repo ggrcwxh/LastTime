@@ -36,7 +36,7 @@ public class SetKinAndKithActivity extends AppCompatActivity {
         set=(Button)findViewById(R.id.title_set);
         final EditText calledittext = (EditText)findViewById(R.id.call_edit_text);
         final EditText numsedittext  =(EditText)findViewById(R.id.num_edit_text);
-        Button back =(Button)findViewById(R.id.setkinandkith_back);
+
         Button confirm =(Button)findViewById(R.id.setkinandkith_confirm);
         //点击拍照按钮的事件
         add.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +77,7 @@ public class SetKinAndKithActivity extends AppCompatActivity {
 
             }
         });
-        back.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                finish();
-            }
-        });
+
 
     }
 }

@@ -21,14 +21,12 @@
             android:id="@+id/setkinandkith_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="确定"/>
-        <Button
-            android:id="@+id/setkinandkith_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="返回"/>
-
+            android:text="设置亲情号码"/>
     </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="删除亲情号码"/>
 
 
 </LinearLayout>
