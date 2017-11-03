@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.example.lasttime.R;
 import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.domain.PhotoInfo;
+import com.example.lasttime.domain.WordInfo;
 import com.example.lasttime.service.CallInfoService;
 import com.example.lasttime.service.IDUDDatebase;
 
@@ -68,8 +69,10 @@ public class UserLastTimeActivity extends AppCompatActivity {
         callInfoService.updateKITH_AND_KIN();
         IDUDDatebase idudDatebase1=new IDUDDatebase("KITH_AND_KIN",MainActivity.dbHelper);
         IDUDDatebase idudDatebase2=new IDUDDatebase("PHOTO",MainActivity.dbHelper);
+        IDUDDatebase idudDatebase3=new IDUDDatebase("WORD",MainActivity.dbHelper);
         List<CallInfo> list1 = idudDatebase1.selectAll();
         List<PhotoInfo> list2 = idudDatebase2.selectAll2();
+        List<WordInfo> list3 = idudDatebase3.selectAll3();
         List<String> data =new ArrayList<>();
         if(list1.size()!=0){
             for(CallInfo attribute:list1){
@@ -79,6 +82,11 @@ public class UserLastTimeActivity extends AppCompatActivity {
         if(list2.size()!=0){
             for(PhotoInfo attribute:list2){
                 data.add(String.format("您距离去%s已经有%d天了",attribute.getPlace(),(currentTimeMillis()-attribute.getDate())/86400000));
+            }
+        }
+        if(list3.size()!=0){
+            for(WordInfo attribute:list3){
+                data.add(String.format("距离%s已经有%d天了",attribute.getClassification(),(currentTimeMillis()-attribute.getDate())/86400000));
             }
         }
 
