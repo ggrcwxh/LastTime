@@ -31,7 +31,7 @@
         android:name=".MyApplication"
         android:allowBackup="true"
         android:label="上一次"
-        android:icon="@drawable/icon"
+        android:icon="@drawable/icon512"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

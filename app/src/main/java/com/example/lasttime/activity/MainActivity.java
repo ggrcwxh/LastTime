@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
 import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.service.CallInfoService;
+import com.example.lasttime.service.HttpToServer;
 import com.example.lasttime.service.IDUDDatebase;
 import com.example.lasttime.service.PhotoExifService;
 
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     Button add;
     Button record;
     Button set;
+    Button confirm;
+    EditText edit;
     String mImagePath;//图片的真实地址
     String mImagePath2;
     @Override
@@ -65,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         add=(Button)findViewById(R.id.title_add);
         record=(Button)findViewById(R.id.title_record);
         set=(Button)findViewById(R.id.title_set);
+        edit=(EditText)findViewById(R.id.main_edit);
+        confirm=(Button)findViewById(R.id.main_confirm);
         //执行读取通话记录，更新数据库
         CallInfoService callInfoService = new CallInfoService(dbHelper);
         callInfoService.getCallInfos();
@@ -124,6 +130,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+            }
+        });
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String post=edit.getText().toString();
+                HttpToServer httpToServer = new HttpToServer(post);
+                httpToServer.start();
             }
         });
 

@@ -11,9 +11,13 @@ import java.net.URL;
  */
 
 public class HttpToServer extends Thread{
+    String post;
+    public HttpToServer(String post){
+        this.post=post;
+    }
     @Override
     public void run(){
-        String httpPath="";
+        String httpPath="101.132.111.29/hanlp";
         URL url = null;
         try {
             url = new URL(httpPath);
