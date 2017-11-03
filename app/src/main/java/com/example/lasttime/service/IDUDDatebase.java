@@ -134,4 +134,20 @@ public class IDUDDatebase {
 
         return null;
     }
+    //专门用来查询WORD表中的所有行
+    public List<WordInfo> selectAll3(){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(table.equals("WORD")){
+            List<WordInfo> wordInfos = new ArrayList<>();
+            Cursor cursor = db.query(table, null, null, null, null, null, null);
+            if(cursor!=null&&cursor.moveToFirst()){
+                do{
+                    WordInfo wordInfo = new WordInfo(cursor.getString(0),cursor.getLong(1),cursor.getLong(2));
+                    wordInfos.add(wordInfo);
+                }while(cursor.moveToNext());
+            }
+            return wordInfos;
+        }
+        return null;
+    }
 }

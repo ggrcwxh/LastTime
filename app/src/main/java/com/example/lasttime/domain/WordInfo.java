@@ -8,8 +8,12 @@ package com.example.lasttime.domain;
 public class WordInfo {
         private String classification;
         private long date;
-        private int frequency;
-
+        private long frequency;
+        public WordInfo(String classification,long date,long frequency){
+            this.classification = classification;
+            this.date=date;
+            this.frequency=frequency;
+        }
         public String getClassification() {
             return classification;
         }
@@ -26,11 +30,11 @@ public class WordInfo {
             this.date = date;
         }
 
-        public int getFrequency() {
+        public long getFrequency() {
             return frequency;
         }
 
-        public void setFrequency(int frequency) {
+        public void setFrequency(long frequency) {
             this.frequency = frequency;
         }
     }
