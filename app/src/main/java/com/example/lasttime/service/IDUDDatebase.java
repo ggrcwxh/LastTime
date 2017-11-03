@@ -54,7 +54,11 @@ public class IDUDDatebase {
             db.insert(table,null,values);
         }
         if(table.equals("WORD")){
-
+            ContentValues values = new ContentValues();
+            values.put("classification",wordInfo.getClassification());
+            values.put("date",wordInfo.getDate());
+            values.put("frequency",wordInfo.getFrequency());
+            db.insert(table,null,values);
         }
     }
     //用于更新数据库操作
@@ -69,8 +73,15 @@ public class IDUDDatebase {
         if(table.equals("PHOTO")){
             ContentValues values = new ContentValues();
             values.put("date",photoInfo.getDate());
-            values.put("frequency",this.selectFrequency());
+            values.put("frequency",this.selectFrequency()+1);
             db.update(table,values,"place=?",new String[] {photoInfo.getPlace()});
+        }
+        if(table.equals("WORD")){
+            ContentValues values = new ContentValues();
+            values.put("classification",wordInfo.getClassification());
+            values.put("date",wordInfo.getDate());
+            values.put("frequency",selectFrequency()+1);
+            db.update(table,values,"classification=?",new String[]{wordInfo.getClassification()});
         }
     }
     //专门用于查询frequency
@@ -91,6 +102,15 @@ public class IDUDDatebase {
             String temp1 ="place=?";
             String[] temp2={photoInfo.getPlace()};
             Cursor cursor =db.query(table,temp,temp1,temp2,null,null,null);
+            if(cursor!=null&&cursor.moveToFirst()){
+                return cursor.getLong(0);
+            }
+        }
+        if(table.equals("WORD")){
+            String[] temp={"frequency"};
+            String temp1 ="classification=?";
+            String[] temp2={wordInfo.getClassification()};
+            Cursor cursor = db.query(table,temp,temp1,temp2,null,null,null);
             if(cursor!=null&&cursor.moveToFirst()){
                 return cursor.getLong(0);
             }

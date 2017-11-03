@@ -1,5 +1,8 @@
 package com.example.lasttime.service;
 
+import com.example.lasttime.activity.MainActivity;
+import com.example.lasttime.domain.WordInfo;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -8,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 /**
  * Created by 67014 on 2017/11/1.
@@ -16,6 +20,8 @@ import java.net.URL;
 public class HttpToServer extends Thread{
     String post;
     String classify;
+    long date;
+    WordInfo wordInfo;
     public HttpToServer(String post){
         this.post=post;
     }
@@ -42,6 +48,8 @@ public class HttpToServer extends Thread{
             }
             bos.close();
             classify=bos.toString("utf-8");
+            date=System.currentTimeMillis();
+            wordInfo=new WordInfo(classify,date,0);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -49,5 +57,19 @@ public class HttpToServer extends Thread{
         }
 
 
+    }
+    public void updateToDatabase(){
+        IDUDDatebase idudDatebase = new IDUDDatebase("WORD",null,null,wordInfo, MainActivity.dbHelper);
+        List<WordInfo> list = idudDatebase.selectAll3();
+        boolean flag = false;
+        for(WordInfo attribute : list){
+            if(wordInfo.getClassification().equals(attribute.getClassification())){
+                idudDatebase.update();
+                flag=true;
+            }
+        }
+        if(flag==false){
+            idudDatebase.insert();
+        }
     }
 }
