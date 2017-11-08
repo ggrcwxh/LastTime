@@ -27,7 +27,7 @@ public class HttpToServer extends Thread{
     }
     @Override
     public void run(){
-        String httpPath="101.132.111.29：8080/hanlp";
+        String httpPath="101.132.111.29/hanlp";
         URL url = null;
         try {
             url = new URL(httpPath);

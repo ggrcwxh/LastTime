@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String post=edit.getText().toString();
-                if(post!=null){
+                if(!post.equals("")){
                     HttpToServer httpToServer = new HttpToServer(post);
                     httpToServer.start();
                     Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库，可以在记录中查看啦",Toast.LENGTH_SHORT).show();
