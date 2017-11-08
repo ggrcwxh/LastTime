@@ -136,9 +136,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String post=edit.getText().toString();
-                HttpToServer httpToServer = new HttpToServer(post);
-                httpToServer.start();
-                Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库，可以在记录中查看啦",Toast.LENGTH_SHORT).show();
+                if(post!=null){
+                    HttpToServer httpToServer = new HttpToServer(post);
+                    httpToServer.start();
+                    Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库，可以在记录中查看啦",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(MainActivity.this,"您并没有输入相关数据",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
