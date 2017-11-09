@@ -27,7 +27,7 @@ public class HttpToServer extends Thread{
     }
     @Override
     public void run(){
-        String httpPath="101.132.111.29/hanlp";
+        String httpPath="http://101.132.111.29/hanlp";
         URL url = null;
         try {
             url = new URL(httpPath);
@@ -50,6 +50,7 @@ public class HttpToServer extends Thread{
             classify=bos.toString("utf-8");
             date=System.currentTimeMillis();
             wordInfo=new WordInfo(classify,date,0);
+            updateToDatabase();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
