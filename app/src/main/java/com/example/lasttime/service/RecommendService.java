@@ -17,6 +17,7 @@ public class RecommendService {
     List<CallInfo> callInfos = new ArrayList<>();
     List<PhotoInfo> photoInfos = new ArrayList<>();
     List<WordInfo> wordInfos = new ArrayList<>();
+    String recommend;
     public RecommendService(){
         IDUDDatebase idudDatebase1 = new IDUDDatebase("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
         IDUDDatebase idudDatebase2 = new IDUDDatebase("PHOTO",null,null,null, MainActivity.dbHelper);
@@ -24,6 +25,12 @@ public class RecommendService {
         callInfos = idudDatebase1.selectAll();
         photoInfos = idudDatebase2.selectAll2();
         wordInfos = idudDatebase3.selectAll3();
+    }
+    public String getRecommend(){
+        for(CallInfo attribute:callInfos){
+
+        }
+        return recommend;
     }
 
 }
