@@ -27,6 +27,7 @@ import com.example.lasttime.service.CallInfoService;
 import com.example.lasttime.service.HttpToServer;
 import com.example.lasttime.service.IDUDDatebase;
 import com.example.lasttime.service.PhotoExifService;
+import com.example.lasttime.service.RecommendService;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     Button record;
     Button set;
     Button confirm;
+    Button recommend;
     EditText edit;
     String mImagePath;//图片的真实地址
     String mImagePath2;
@@ -71,11 +73,20 @@ public class MainActivity extends AppCompatActivity {
         set=(Button)findViewById(R.id.title_set);
         edit=(EditText)findViewById(R.id.main_edit);
         confirm=(Button)findViewById(R.id.main_confirm);
+        recommend=(Button)findViewById(R.id.title_recommend);
         //执行读取通话记录，更新数据库
         CallInfoService callInfoService = new CallInfoService(dbHelper);
         callInfoService.getCallInfos();
         callInfoService.updateKITH_AND_KIN();
-        //点击拍照按钮的事件
+        //以下title栏的按钮点击事件
+        recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecommendService recommendService = new RecommendService();
+                recommendService.getRecommend();
+                //暂时写到这里
+            }
+        });
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //点击拍照按钮的事件
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

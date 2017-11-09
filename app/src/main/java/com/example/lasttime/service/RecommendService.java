@@ -8,6 +8,8 @@ import com.example.lasttime.domain.WordInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.currentTimeMillis;
+
 /**
  * Created by ggrc on 2017/11/10.
  * 用来向用户推荐一件事
@@ -27,7 +29,47 @@ public class RecommendService {
         wordInfos = idudDatebase3.selectAll3();
     }
     public String getRecommend(){
+        long max=0;
+        String id=null;
+        CallInfo callInfo = null;
+        PhotoInfo photoInfo = null;
+        WordInfo wordInfo = null;
         for(CallInfo attribute:callInfos){
+            long temp = (currentTimeMillis()-attribute.getDate())/86400000+attribute.getFrequency();
+            if(max<temp){
+                max=temp;
+                id="call";
+                callInfo =attribute;
+            }
+        }
+        for(PhotoInfo attribute:photoInfos) {
+            long temp = (currentTimeMillis() - attribute.getDate()) / 86400000 + attribute.getFrequency();
+            if (max < temp) {
+                max = temp;
+                id = "photo";
+                photoInfo=attribute;
+            }
+        }
+        for(WordInfo attribute:wordInfos){
+            long temp = (currentTimeMillis() - attribute.getDate()) / 86400000 + attribute.getFrequency();
+            if (max < temp) {
+                max = temp;
+                id = "word";
+                wordInfo=attribute;
+            }
+        }
+        switch(id){
+            case"call":
+                recommend = String.format("您已距离和%s打电话有%d天了",callInfo.getCall(),(currentTimeMillis()-callInfo.getDate())/86400000);
+                break;
+            case"photo":
+                recommend=String.format("您距离去%s已经有%d天了",photoInfo.getPlace(),(currentTimeMillis()-photoInfo.getDate())/86400000);
+                break;
+            case"word":
+                recommend=String.format("距离%s已经有%d天了",wordInfo.getClassification(),(currentTimeMillis()-wordInfo.getDate())/86400000);
+                break;
+            default:
+                recommend=null;
 
         }
         return recommend;
