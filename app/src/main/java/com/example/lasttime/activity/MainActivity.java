@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -83,8 +84,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RecommendService recommendService = new RecommendService();
-                recommendService.getRecommend();
-                //暂时写到这里
+                String temp =recommendService.getRecommend();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("推荐");
+                dialog.setMessage(temp);
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定",null);
+                dialog.show();
             }
         });
         add.setOnClickListener(new View.OnClickListener() {
