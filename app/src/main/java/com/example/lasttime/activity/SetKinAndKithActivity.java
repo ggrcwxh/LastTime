@@ -26,6 +26,7 @@ public class SetKinAndKithActivity extends AppCompatActivity {
     Button record;
     Button set;
     Button recommend;
+    Button delete;
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
@@ -38,9 +39,9 @@ public class SetKinAndKithActivity extends AppCompatActivity {
         record=(Button)findViewById(R.id.title_record);
         set=(Button)findViewById(R.id.title_set);
         recommend=(Button)findViewById(R.id.title_recommend);
+        delete=(Button)findViewById(R.id.setkinandkith_delete);
         final EditText calledittext = (EditText)findViewById(R.id.call_edit_text);
         final EditText numsedittext  =(EditText)findViewById(R.id.num_edit_text);
-
         Button confirm =(Button)findViewById(R.id.setkinandkith_confirm);
         recommend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +92,14 @@ public class SetKinAndKithActivity extends AppCompatActivity {
                // callInfoService.getCallinfos();
                // callInfoService.updateKITH_AND_KIN();
 
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(SetKinAndKithActivity.this,DeleteKinAndKithActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

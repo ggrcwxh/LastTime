@@ -24,6 +24,7 @@
             android:text="设置亲情号码"/>
     </LinearLayout>
     <Button
+        android:id="@+id/setkinandkith_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="删除亲情号码"/>
