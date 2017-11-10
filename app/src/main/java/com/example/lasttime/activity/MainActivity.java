@@ -232,5 +232,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库,可以在记录中查看啦",Toast.LENGTH_SHORT).show();
 
         }
+        if(requestCode==RESULT_IMAGE_CODE&&resultCode==RESULT_OK){
+            PhotoExifService photoExifService = new PhotoExifService(mImagePath);
+            photoExifService.getDateLatitudeLongitude();
+            Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库,可以在记录中查看啦",Toast.LENGTH_SHORT).show();
+        }
     }
 }
