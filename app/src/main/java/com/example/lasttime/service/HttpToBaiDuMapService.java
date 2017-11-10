@@ -1,6 +1,13 @@
 package com.example.lasttime.service;
 
 
+import android.app.Dialog;
+import android.support.v7.app.AlertDialog;
+import android.view.WindowManager;
+import android.widget.Toast;
+
+import com.example.lasttime.MyApplication;
+
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.PhotoInfo;
 
@@ -87,6 +94,10 @@ public class HttpToBaiDuMapService implements Runnable {
 
     }
     private void updateToDatabase(String s){
+        if(s.equals("")){
+            Toast.makeText(MyApplication.getContext(),"咦，无法读取您图片中的地址",Toast.LENGTH_SHORT).show();
+            return;
+        }
         photoInfo = new PhotoInfo(s,photoPath,date,0);
         IDUDDatebase idudDatebase =new IDUDDatebase("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
         List<PhotoInfo> list=idudDatebase.selectAll2();
