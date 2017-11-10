@@ -2,12 +2,13 @@ package com.example.lasttime.service;
 
 
 import android.app.Dialog;
-import android.support.v7.app.AlertDialog;
-import android.view.WindowManager;
-import android.widget.Toast;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+
 
 import com.example.lasttime.MyApplication;
 
+import com.example.lasttime.activity.BlankActivity;
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.PhotoInfo;
 
@@ -25,12 +26,14 @@ import java.net.URL;
 import java.util.List;
 
 
+
+
 /**
  * Created by ggrc on 2017/10/31.
  * 此类用户链接百度地图api进行反地理编码
  */
 
-public class HttpToBaiDuMapService implements Runnable {
+public class HttpToBaiDuMapService extends AppCompatActivity implements Runnable {
     float output1;
     float output2;
     long date;
@@ -95,7 +98,8 @@ public class HttpToBaiDuMapService implements Runnable {
     }
     private void updateToDatabase(String s){
         if(s.equals("")){
-            Toast.makeText(MyApplication.getContext(),"咦，无法读取您图片中的地址",Toast.LENGTH_SHORT).show();
+            Intent intent =new Intent(MyApplication.getContext(), BlankActivity.class);
+            startActivity(intent);
             return;
         }
         photoInfo = new PhotoInfo(s,photoPath,date,0);
