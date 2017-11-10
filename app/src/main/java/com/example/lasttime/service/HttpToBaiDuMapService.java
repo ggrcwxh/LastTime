@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * Created by ggrc on 2017/10/31.
+ * 此类用户链接百度地图api进行反地理编码
  */
 
 public class HttpToBaiDuMapService implements Runnable {

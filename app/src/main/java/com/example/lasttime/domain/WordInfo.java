@@ -2,6 +2,7 @@ package com.example.lasttime.domain;
 
 /**
  * Created by ggrc on 2017/10/27.
+ * 此类是用户手写输入数据类
  */
 
 

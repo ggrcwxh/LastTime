@@ -19,6 +19,7 @@ import com.example.lasttime.service.RecommendService;
 
 /**
  * Created by ggrc on 2017/10/27.
+ * 此类是用来设置亲情号码的活动类
  */
 
 public class SetKinAndKithActivity extends AppCompatActivity {

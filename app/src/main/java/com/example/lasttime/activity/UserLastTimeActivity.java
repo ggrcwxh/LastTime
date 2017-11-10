@@ -26,6 +26,7 @@ import static java.lang.System.currentTimeMillis;
 
 /**
  * Created by ggrc on 2017/10/31.
+ * 此类是用来显示用户上一次时间的活动类
  */
 
 public class UserLastTimeActivity extends AppCompatActivity {

@@ -22,6 +22,7 @@ import java.util.List;
 
 /**
  * Created by ggrc on 2017/11/10.
+ * 此类是用来删除亲情号码的活动类
  */
 
 public class DeleteKinAndKithActivity extends AppCompatActivity {
