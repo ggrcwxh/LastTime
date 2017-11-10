@@ -3,6 +3,7 @@ package com.example.lasttime.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +15,7 @@ import com.example.lasttime.R;
 import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.service.CallInfoService;
 import com.example.lasttime.service.IDUDDatebase;
+import com.example.lasttime.service.RecommendService;
 
 /**
  * Created by ggrc on 2017/10/27.
@@ -23,6 +25,7 @@ public class SetKinAndKithActivity extends AppCompatActivity {
     Button add;
     Button record;
     Button set;
+    Button recommend;
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
@@ -34,11 +37,24 @@ public class SetKinAndKithActivity extends AppCompatActivity {
         add=(Button)findViewById(R.id.title_add);
         record=(Button)findViewById(R.id.title_record);
         set=(Button)findViewById(R.id.title_set);
+        recommend=(Button)findViewById(R.id.title_recommend);
         final EditText calledittext = (EditText)findViewById(R.id.call_edit_text);
         final EditText numsedittext  =(EditText)findViewById(R.id.num_edit_text);
 
         Button confirm =(Button)findViewById(R.id.setkinandkith_confirm);
-        //点击拍照按钮的事件
+        recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecommendService recommendService = new RecommendService();
+                String temp =recommendService.getRecommend();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(SetKinAndKithActivity.this);
+                dialog.setTitle("推荐");
+                dialog.setMessage(temp);
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定",null);
+                dialog.show();
+            }
+        });
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
