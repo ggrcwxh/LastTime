@@ -60,13 +60,13 @@ public class RecommendService {
         }
         switch(id){
             case"call":
-                recommend = String.format("您已距离和%s打电话有%d天了",callInfo.getCall(),(currentTimeMillis()-callInfo.getDate())/86400000);
+                recommend = String.format("您已距离和%s打电话有%d天了，不如？",callInfo.getCall(),(currentTimeMillis()-callInfo.getDate())/86400000);
                 break;
             case"photo":
-                recommend=String.format("您距离去%s已经有%d天了",photoInfo.getPlace(),(currentTimeMillis()-photoInfo.getDate())/86400000);
+                recommend=String.format("您距离去%s已经有%d天了，不如？",photoInfo.getPlace(),(currentTimeMillis()-photoInfo.getDate())/86400000);
                 break;
             case"word":
-                recommend=String.format("距离%s已经有%d天了",wordInfo.getClassification(),(currentTimeMillis()-wordInfo.getDate())/86400000);
+                recommend=String.format("距离%s已经有%d天了，不如？",wordInfo.getClassification(),(currentTimeMillis()-wordInfo.getDate())/86400000);
                 break;
             default:
                 recommend=null;
