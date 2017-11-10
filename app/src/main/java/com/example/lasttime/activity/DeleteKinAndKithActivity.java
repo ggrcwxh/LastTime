@@ -1,17 +1,21 @@
 package com.example.lasttime.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.lasttime.R;
 import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.service.IDUDDatebase;
+import com.example.lasttime.service.RecommendService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,10 @@ import java.util.List;
 
 public class DeleteKinAndKithActivity extends AppCompatActivity {
     private IDUDDatebase idudDatebase;
+    Button add;
+    Button record;
+    Button set;
+    Button recommend;
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
@@ -31,7 +39,48 @@ public class DeleteKinAndKithActivity extends AppCompatActivity {
         if(actionbar!=null){
             actionbar.hide();
         }
-        final ListView listView = (ListView)findViewById(R.id.delete_listview);
+        add=(Button)findViewById(R.id.title_add);
+        record=(Button)findViewById(R.id.title_record);
+        set=(Button)findViewById(R.id.title_set);
+        recommend=(Button)findViewById(R.id.title_recommend);
+        recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecommendService recommendService = new RecommendService();
+                String temp =recommendService.getRecommend();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(DeleteKinAndKithActivity.this);
+                dialog.setTitle("推荐");
+                dialog.setMessage(temp);
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定",null);
+                dialog.show();
+            }
+        });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DeleteKinAndKithActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(DeleteKinAndKithActivity.this,UserLastTimeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DeleteKinAndKithActivity.this,SetKinAndKithActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        ListView listView = (ListView)findViewById(R.id.delete_listview);
         //从数据库中读取所有联系人的信息
         idudDatebase = new IDUDDatebase("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
         List<CallInfo> list = idudDatebase.selectAll();
