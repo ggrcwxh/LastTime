@@ -170,4 +170,10 @@ public class IDUDDatebase {
         }
         return null;
     }
+    public void delete(String attribute){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(table.equals("KITH_AND_KIN")){
+            db.delete(table,"call=?",new String[] {attribute});
+        }
+    }
 }
