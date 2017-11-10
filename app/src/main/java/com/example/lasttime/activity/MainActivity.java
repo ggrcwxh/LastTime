@@ -42,8 +42,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private final int RESULT_CAPTURE_CODE =200;
+    private  final int RESULT_IMAGE_CODE = 100;
     public static LastTimeDatabaseHelper dbHelper= new LastTimeDatabaseHelper(MyApplication.getContext(),"lasttime.db",null,1);//创建数据库
     Button camera;//通过拍照记录
+    Button album;
     Button add;
     Button record;
     Button set;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             actionbar.hide();
         }
         camera=(Button)findViewById(R.id.main_camera);
+        album=(Button)findViewById(R.id.main_album);
         add=(Button)findViewById(R.id.title_add);
         record=(Button)findViewById(R.id.title_record);
         set=(Button)findViewById(R.id.title_set);
@@ -150,6 +153,42 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        //点击相册按钮事件
+        album.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss")
+                        .format(new Date());
+                mImagePath = "/sdcard/" + timeStamp + ".jpg";
+                final File tmpCameraFile = new File(mImagePath);
+                String[] PERMISSIONS_STORAGE = {
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                };
+                //动态获取存储器权限
+                int permission = ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (permission != PackageManager.PERMISSION_GRANTED) {
+                        // We don't have permission so prompt the user
+                        ActivityCompat.requestPermissions(
+                                MainActivity.this,
+                                PERMISSIONS_STORAGE,
+                                111
+                        );
+                }
+                startActivityForResult(
+                        new Intent(Intent.ACTION_PICK).setType(
+                                "image/*").putExtra(
+                                MediaStore.EXTRA_OUTPUT,
+                                Uri.fromFile(tmpCameraFile)),
+                        RESULT_IMAGE_CODE);
+
+
+
+
+
+
+            }
+        });
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
-        //动态获取读存储器权限
+        //动态获取存储器权限
         if(requestCode==RESULT_CAPTURE_CODE&&resultCode==RESULT_OK){
             int permission = ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
