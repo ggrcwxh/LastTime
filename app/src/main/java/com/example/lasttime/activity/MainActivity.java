@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent =new Intent(MainActivity.this,UserLastTimeActivity.class);
                 startActivity(intent);
-                finish();
+
             }
         });
         set.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent =new Intent(MainActivity.this,SetKinAndKithActivity.class);
                 startActivity(intent);
-                finish();
+
             }
         });
         //点击拍照按钮的事件

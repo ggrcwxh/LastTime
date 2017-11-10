@@ -117,7 +117,7 @@ public class SetKinAndKithActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(SetKinAndKithActivity.this,DeleteKinAndKithActivity.class);
                 startActivity(intent);
-                finish();
+
             }
         });
 
