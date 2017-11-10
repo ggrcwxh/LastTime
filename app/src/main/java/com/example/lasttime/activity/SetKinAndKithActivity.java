@@ -85,10 +85,27 @@ public class SetKinAndKithActivity extends AppCompatActivity {
                 //读取edit上的数据
                 String call = calledittext.getText().toString();
                 String num  = numsedittext.getText().toString();
-                CallInfo callInfo = new CallInfo(call,num);
-                IDUDDatebase idudDatebase = new IDUDDatebase("KITH_AND_KIN",callInfo,null,null,MainActivity.dbHelper);
-                idudDatebase.insert();
-                Toast.makeText(SetKinAndKithActivity.this,"已经存入数据库",Toast.LENGTH_SHORT).show();
+                if(!call.equals("")&&!num.equals("")){
+                    CallInfo callInfo = new CallInfo(call,num);
+                    IDUDDatebase idudDatebase = new IDUDDatebase("KITH_AND_KIN",callInfo,null,null,MainActivity.dbHelper);
+                    idudDatebase.insert();
+                    Toast.makeText(SetKinAndKithActivity.this,"已经存入数据库",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    if(call.equals("")&&call.equals("")){
+                        Toast.makeText(SetKinAndKithActivity.this,"称呼和号码都还没有输入哦",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        if(call.equals("")){
+                            Toast.makeText(SetKinAndKithActivity.this,"称呼还没输入哦",Toast.LENGTH_SHORT).show();
+                        }
+                        if(num.equals("")){
+                            Toast.makeText(SetKinAndKithActivity.this,"号码还没输入哦",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+
               //  CallInfoService callInfoService = new CallInfoService(MainActivity.dbHelper);
                // callInfoService.getCallinfos();
                // callInfoService.updateKITH_AND_KIN();
