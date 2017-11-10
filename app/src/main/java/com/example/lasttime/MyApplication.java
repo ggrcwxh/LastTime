@@ -8,6 +8,7 @@ import android.os.StrictMode;
 
 /**
  * Created by ggrc on 2017/10/27.
+ * 获取上下文
  */
 
 public class MyApplication extends Application {
