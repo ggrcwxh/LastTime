@@ -1,8 +1,10 @@
 package com.example.lasttime.activity;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -233,6 +235,26 @@ public class MainActivity extends AppCompatActivity {
 
         }
         if(requestCode==RESULT_IMAGE_CODE&&resultCode==RESULT_OK){
+            Uri uri =data.getData();
+            final String scheme = uri.getScheme();
+            String mImagePath = null;
+            if ( scheme == null )
+                mImagePath = uri.getPath();
+            else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+                mImagePath = uri.getPath();
+            } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
+                Cursor cursor = MyApplication.getContext().getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
+                if ( null != cursor ) {
+                    if ( cursor.moveToFirst() ) {
+                        int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                        if ( index > -1 ) {
+                            mImagePath = cursor.getString( index );
+                        }
+                    }
+                    cursor.close();
+                }
+            }
+
             PhotoExifService photoExifService = new PhotoExifService(mImagePath);
             photoExifService.getDateLatitudeLongitude();
             Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库,可以在记录中查看啦",Toast.LENGTH_SHORT).show();
