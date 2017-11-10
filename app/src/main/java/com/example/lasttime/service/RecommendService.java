@@ -58,20 +58,27 @@ public class RecommendService {
                 wordInfo=attribute;
             }
         }
-        switch(id){
-            case"call":
-                recommend = String.format("您已距离和%s打电话有%d天了，不如？",callInfo.getCall(),(currentTimeMillis()-callInfo.getDate())/86400000);
-                break;
-            case"photo":
-                recommend=String.format("您距离去%s已经有%d天了，不如？",photoInfo.getPlace(),(currentTimeMillis()-photoInfo.getDate())/86400000);
-                break;
-            case"word":
-                recommend=String.format("距离%s已经有%d天了，不如？",wordInfo.getClassification(),(currentTimeMillis()-wordInfo.getDate())/86400000);
-                break;
-            default:
-                recommend=null;
+        if(id!=null){
+            switch(id){
+                case"call":
+                    recommend = String.format("您已距离和%s打电话有%d天了，不如？",callInfo.getCall(),(currentTimeMillis()-callInfo.getDate())/86400000);
+                    break;
+                case"photo":
+                    recommend=String.format("您距离去%s已经有%d天了，不如？",photoInfo.getPlace(),(currentTimeMillis()-photoInfo.getDate())/86400000);
+                    break;
+                case"word":
+                    recommend=String.format("距离%s已经有%d天了，不如？",wordInfo.getClassification(),(currentTimeMillis()-wordInfo.getDate())/86400000);
+                    break;
+                default:
+                    recommend=null;
+
+            }
 
         }
+        else{
+            recommend="您还没有记录任何事情哦，不如去设置亲情号码，或者用使用添加内的功能记录:)";
+        }
+
         return recommend;
     }
 

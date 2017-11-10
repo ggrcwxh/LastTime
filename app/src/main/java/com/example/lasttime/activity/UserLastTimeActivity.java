@@ -42,6 +42,9 @@ public class UserLastTimeActivity extends AppCompatActivity {
         if(actionbar!=null){
             actionbar.hide();
         }
+        CallInfoService callInfoService0 = new CallInfoService(MainActivity.dbHelper);
+        callInfoService0.getCallInfos();
+        callInfoService0.updateKITH_AND_KIN();
         ListView listView = (ListView)findViewById(R.id.user_last_time);
         add=(Button)findViewById(R.id.title_add);
         record=(Button)findViewById(R.id.title_record);
