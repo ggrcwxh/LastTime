@@ -83,12 +83,19 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Callable
         try {
             JSONObject jsonObject = new JSONObject(s);
             //formatted_address = jsonObject.getString("formatted_address");
-            //recommended_location_description = jsonObject.getString("recommended_location_description");
+            recommended_location_description = jsonObject.getString("recommended_location_description");
             JSONObject jsonObject1 = jsonObject.getJSONObject("address_component");
             if((address=jsonObject1.getString("street"))==null){
                 address= jsonObject.getString("district");
             }
-            flag=updateToDatabase(address);
+            String[] temp = recommended_location_description.split("东|南|西|北|中|内");
+            StringBuffer data=new StringBuffer();
+            for(int i=0;i<temp.length-1;i++){
+                data.append(temp[i]);
+
+            }
+            String data1=data.toString();
+            flag=updateToDatabase(data1);
 
 
 
