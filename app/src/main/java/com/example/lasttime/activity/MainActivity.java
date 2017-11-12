@@ -204,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(MainActivity.this,"您并没有输入相关数据",Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -232,8 +233,18 @@ public class MainActivity extends AppCompatActivity {
             }
             //将照片地址送入读取exif相关类交给后台处理
             PhotoExifService photoExifService = new PhotoExifService(mImagePath);
-            photoExifService.getDateLatitudeLongitude();
-            Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库,可以在记录中查看啦",Toast.LENGTH_SHORT).show();
+            Boolean flag=photoExifService.getDateLatitudeLongitude();
+            if(flag){
+                Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库,可以在记录中查看啦",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("抱歉");
+                dialog.setMessage("无法读到你的图片的地址信息，如果是使用拍照功能的话请打开gps");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定",null);
+                dialog.show();
+            }
 
         }
         if(requestCode==RESULT_IMAGE_CODE&&resultCode==RESULT_OK){
@@ -258,8 +269,18 @@ public class MainActivity extends AppCompatActivity {
             }
 
             PhotoExifService photoExifService = new PhotoExifService(mImagePath);
-            photoExifService.getDateLatitudeLongitude();
-            Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库,可以在记录中查看啦",Toast.LENGTH_SHORT).show();
+            Boolean flag=photoExifService.getDateLatitudeLongitude();
+            if(flag){
+                Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库,可以在记录中查看啦",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("抱歉");
+                dialog.setMessage("无法读到你的图片的地址信息，如果是使用拍照功能的话请打开gps");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定",null);
+                dialog.show();
+            }
         }
     }
 }

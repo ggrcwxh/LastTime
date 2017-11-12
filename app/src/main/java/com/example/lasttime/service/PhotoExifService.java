@@ -8,7 +8,13 @@ import com.example.lasttime.domain.PhotoInfo;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Created by ggrc on 2017/10/27.
@@ -25,7 +31,7 @@ public class PhotoExifService {
         {
             this.path=path;
         }
-        public void getDateLatitudeLongitude()
+        public Boolean getDateLatitudeLongitude()
         {
 
             try {
@@ -56,12 +62,20 @@ public class PhotoExifService {
                     output2 = convertRationalLatLonToFloat(lngValue, lngRef);
                 }
                 //将经纬度发送到另一个http线程中
-                HttpToBaiDuMapService httpToBaiDuMapService = new HttpToBaiDuMapService(output1,output2,nndate,path);
-                new Thread(httpToBaiDuMapService).start();
+                ExecutorService exec= Executors.newCachedThreadPool();
+                Future<Boolean> results = exec.submit(new HttpToBaiDuMapService(output1,output2,nndate,path));
+                try {
+                    return results.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return false;
 
 
         }

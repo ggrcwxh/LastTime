@@ -24,8 +24,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.List;
-
-
+import java.util.concurrent.Callable;
 
 
 /**
@@ -33,7 +32,7 @@ import java.util.List;
  * 此类用户链接百度地图api进行反地理编码
  */
 
-public class HttpToBaiDuMapService extends AppCompatActivity implements Runnable {
+public class HttpToBaiDuMapService extends AppCompatActivity implements Callable<Boolean> {
     float output1;
     float output2;
     long date;
@@ -46,9 +45,10 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Runnable
         this.photoPath= photoPath;
     }
     @Override
-    public void run(){
+    public Boolean call(){
         String httpPath="http://api.map.baidu.com/cloudrgc/v1?location="+output1+","+output2+"&geotable_id=135675&coord_type=bd09ll&ak=E9ZYWuO733BgH6Epr8ZqjvG2Ai5L4l7n";
         URL url = null;
+        Boolean flag=false;
         try {
             url = new URL(httpPath);
             HttpURLConnection connection=(HttpURLConnection)url.openConnection();
@@ -64,7 +64,7 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Runnable
                 reponse.append(line);
             }
             String s=reponse.toString();
-            parseJSONWithJSONObject(s);
+            flag=parseJSONWithJSONObject(s);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -72,11 +72,13 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Runnable
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return flag;
 
     }
-    private void parseJSONWithJSONObject(String s){
+    private Boolean parseJSONWithJSONObject(String s){
         String formatted_address;
         String recommended_location_description;
+        Boolean flag = false;
         String address;
         try {
             JSONObject jsonObject = new JSONObject(s);
@@ -86,21 +88,21 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Runnable
             if((address=jsonObject1.getString("street"))==null){
                 address= jsonObject.getString("district");
             }
-            updateToDatabase(address);
+            flag=updateToDatabase(address);
 
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return flag;
 
 
     }
-    private void updateToDatabase(String s){
+    private Boolean updateToDatabase(String s){
         if(s.equals("")){
-            Intent intent =new Intent(MyApplication.getContext(), BlankActivity.class);
-            startActivity(intent);
-            return;
+
+            return false;
         }
         photoInfo = new PhotoInfo(s,photoPath,date,0);
         IDUDDatebase idudDatebase =new IDUDDatebase("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
@@ -115,6 +117,7 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Runnable
         if(flag==false){
             idudDatebase.insert();
         }
+        return true;
 
     }
 }
