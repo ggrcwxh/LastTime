@@ -1,4 +1,4 @@
-package com.example.lasttime.service;
+package com.example.lasttime.thread;
 
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.WordInfo;

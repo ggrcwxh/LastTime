@@ -1,4 +1,4 @@
-package com.example.lasttime.service;
+package com.example.lasttime.thread;
 
 
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +25,8 @@ import java.util.concurrent.Callable;
 
 /**
  * Created by ggrc on 2017/10/31.
- * 此类用户链接百度地图api进行反地理编码
+ * 此类用于使用百度lps云服务进行反地理编码
+ * 同时还要对得到的json信息进行处理以及数据库的存储
  */
 
 public class HttpToBaiDuMapService extends AppCompatActivity implements Callable<Boolean> {
