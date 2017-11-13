@@ -20,7 +20,7 @@ import com.example.lasttime.service.RecommendService;
  * 此类是用来设置亲情号码的活动类
  */
 
-public class SetKinAndKithActivity extends AppCompatActivity {
+public class SetActivity extends AppCompatActivity {
     Button add;
     Button record;
     Button set;
@@ -47,7 +47,7 @@ public class SetKinAndKithActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RecommendService recommendService = new RecommendService();
                 String temp =recommendService.getRecommend();
-                AlertDialog.Builder dialog = new AlertDialog.Builder(SetKinAndKithActivity.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(SetActivity.this);
                 dialog.setTitle("推荐");
                 dialog.setMessage(temp);
                 dialog.setCancelable(false);
@@ -58,7 +58,7 @@ public class SetKinAndKithActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SetKinAndKithActivity.this,MainActivity.class);
+                Intent intent=new Intent(SetActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -66,7 +66,7 @@ public class SetKinAndKithActivity extends AppCompatActivity {
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(SetKinAndKithActivity.this,UserLastTimeActivity.class);
+                Intent intent =new Intent(SetActivity.this,UserLastTimeActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -87,18 +87,18 @@ public class SetKinAndKithActivity extends AppCompatActivity {
                     CallInfo callInfo = new CallInfo(call,num);
                     IDUDDatabase idudDatabase = new IDUDDatabase("KITH_AND_KIN",callInfo,null,null,MainActivity.dbHelper);
                     idudDatabase.insert();
-                    Toast.makeText(SetKinAndKithActivity.this,"已经存入数据库",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetActivity.this,"已经存入数据库",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     if(call.equals("")&&call.equals("")){
-                        Toast.makeText(SetKinAndKithActivity.this,"称呼和号码都还没有输入哦",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SetActivity.this,"称呼和号码都还没有输入哦",Toast.LENGTH_SHORT).show();
                     }
                     else{
                         if(call.equals("")){
-                            Toast.makeText(SetKinAndKithActivity.this,"称呼还没输入哦",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SetActivity.this,"称呼还没输入哦",Toast.LENGTH_SHORT).show();
                         }
                         if(num.equals("")){
-                            Toast.makeText(SetKinAndKithActivity.this,"号码还没输入哦",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SetActivity.this,"号码还没输入哦",Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -113,7 +113,7 @@ public class SetKinAndKithActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SetKinAndKithActivity.this,DeleteKinAndKithActivity.class);
+                Intent intent=new Intent(SetActivity.this,DeleteKinAndKithActivity.class);
                 startActivity(intent);
 
             }

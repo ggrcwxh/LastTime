@@ -76,7 +76,7 @@ public class DeleteKinAndKithActivity extends AppCompatActivity {
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DeleteKinAndKithActivity.this,SetKinAndKithActivity.class);
+                Intent intent = new Intent(DeleteKinAndKithActivity.this,SetActivity.class);
                 startActivity(intent);
                 finish();
             }
