@@ -1,4 +1,4 @@
-package com.example.lasttime.service;
+package com.example.lasttime.util;
 
 import android.Manifest;
 import android.content.ContentResolver;
@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import com.example.lasttime.LastTimeDatabaseHelper;
 import com.example.lasttime.MyApplication;
 import com.example.lasttime.domain.CallInfo;
+import com.example.lasttime.util.DatabaseBiz;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,10 @@ import java.util.List;
  * 此类用于读取通话信息以及将信息筛选存入数据库，是CallInfo行为类
  */
 
-public class CallInfoService {
+public class CallInfoBiz {
     private List<CallInfo> callinfos = new ArrayList<CallInfo>();//用List来存取读到的通话记录
     private LastTimeDatabaseHelper dbHelper;
-    public CallInfoService(LastTimeDatabaseHelper dbHelper){
+    public CallInfoBiz(LastTimeDatabaseHelper dbHelper){
         this.dbHelper=dbHelper;
     }
     public void getCallInfos() {
@@ -76,14 +77,14 @@ public class CallInfoService {
     }
     //调用IDUDDatebase中的方法更新数据库
     public void updateKITH_AND_KIN(){
-        IDUDDatabase idudDatabase = new IDUDDatabase("KITH_AND_KIN",dbHelper);
-        List<CallInfo> callinfos2 = idudDatabase.selectAll();
+        DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",dbHelper);
+        List<CallInfo> callinfos2 = databaseBiz.selectAll();
         if(callinfos2==null)return;
         for(CallInfo attribute: this.callinfos){
             for(CallInfo attribute2: callinfos2){
                 if(attribute.getNum().equals(attribute2.getNum())&&attribute.getDate()>attribute2.getDate()){
-                    IDUDDatabase idudDatabase2 = new IDUDDatabase("KITH_AND_KIN",attribute,null,null,dbHelper);
-                    idudDatabase2.update();
+                    DatabaseBiz databaseBiz2 = new DatabaseBiz("KITH_AND_KIN",attribute,null,null,dbHelper);
+                    databaseBiz2.update();
                 }
             }
         }

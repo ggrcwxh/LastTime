@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.PhotoInfo;
+import com.example.lasttime.util.DatabaseBiz;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -107,17 +108,17 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Callable
             return false;
         }
         photoInfo = new PhotoInfo(s,photoPath,date,0);
-        IDUDDatabase idudDatabase =new IDUDDatabase("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
-        List<PhotoInfo> list= idudDatabase.selectAll2();
+        DatabaseBiz databaseBiz =new DatabaseBiz("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
+        List<PhotoInfo> list= databaseBiz.selectAll2();
         boolean flag = false;
         for(PhotoInfo attribute: list){
             if(attribute.getPlace().equals(photoInfo.getPlace())){
-                idudDatabase.update();
+                databaseBiz.update();
                 flag=true;
             }
         }
         if(flag==false){
-            idudDatabase.insert();
+            databaseBiz.insert();
         }
         return true;
 

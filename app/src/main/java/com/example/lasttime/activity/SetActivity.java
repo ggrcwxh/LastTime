@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.example.lasttime.R;
 import com.example.lasttime.domain.CallInfo;
-import com.example.lasttime.service.IDUDDatabase;
-import com.example.lasttime.service.RecommendService;
+import com.example.lasttime.util.DatabaseBiz;
+import com.example.lasttime.util.RecommendBiz;
 
 /**
  * Created by ggrc on 2017/10/27.
@@ -29,7 +29,7 @@ public class SetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
-        setContentView(R.layout.setkinandkith_activity_layout);
+        setContentView(R.layout.set_activity_layout);
         ActionBar actionbar=getSupportActionBar();
         if(actionbar!=null){
             actionbar.hide();
@@ -45,8 +45,8 @@ public class SetActivity extends AppCompatActivity {
         recommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecommendService recommendService = new RecommendService();
-                String temp =recommendService.getRecommend();
+                RecommendBiz recommendBiz = new RecommendBiz();
+                String temp = recommendBiz.getRecommend();
                 AlertDialog.Builder dialog = new AlertDialog.Builder(SetActivity.this);
                 dialog.setTitle("推荐");
                 dialog.setMessage(temp);
@@ -85,8 +85,8 @@ public class SetActivity extends AppCompatActivity {
                 String num  = numsedittext.getText().toString();
                 if(!call.equals("")&&!num.equals("")){
                     CallInfo callInfo = new CallInfo(call,num);
-                    IDUDDatabase idudDatabase = new IDUDDatabase("KITH_AND_KIN",callInfo,null,null,MainActivity.dbHelper);
-                    idudDatabase.insert();
+                    DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",callInfo,null,null,MainActivity.dbHelper);
+                    databaseBiz.insert();
                     Toast.makeText(SetActivity.this,"已经存入数据库",Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -104,7 +104,7 @@ public class SetActivity extends AppCompatActivity {
                 }
 
 
-              //  CallInfoService callInfoService = new CallInfoService(MainActivity.dbHelper);
+              //  CallInfoBiz callInfoService = new CallInfoBiz(MainActivity.dbHelper);
                // callInfoService.getCallinfos();
                // callInfoService.updateKITH_AND_KIN();
 

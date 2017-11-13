@@ -14,9 +14,9 @@ import com.example.lasttime.R;
 import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.domain.PhotoInfo;
 import com.example.lasttime.domain.WordInfo;
-import com.example.lasttime.service.CallInfoService;
-import com.example.lasttime.service.IDUDDatabase;
-import com.example.lasttime.service.RecommendService;
+import com.example.lasttime.util.CallInfoBiz;
+import com.example.lasttime.util.DatabaseBiz;
+import com.example.lasttime.util.RecommendBiz;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +41,9 @@ public class UserLastTimeActivity extends AppCompatActivity {
         if(actionbar!=null){
             actionbar.hide();
         }
-        CallInfoService callInfoService0 = new CallInfoService(MainActivity.dbHelper);
-        callInfoService0.getCallInfos();
-        callInfoService0.updateKITH_AND_KIN();
+        CallInfoBiz callInfoBiz0 = new CallInfoBiz(MainActivity.dbHelper);
+        callInfoBiz0.getCallInfos();
+        callInfoBiz0.updateKITH_AND_KIN();
         ListView listView = (ListView)findViewById(R.id.user_last_time);
         add=(Button)findViewById(R.id.title_add);
         record=(Button)findViewById(R.id.title_record);
@@ -52,8 +52,8 @@ public class UserLastTimeActivity extends AppCompatActivity {
         recommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecommendService recommendService = new RecommendService();
-                String temp =recommendService.getRecommend();
+                RecommendBiz recommendBiz = new RecommendBiz();
+                String temp = recommendBiz.getRecommend();
                 AlertDialog.Builder dialog = new AlertDialog.Builder(UserLastTimeActivity.this);
                 dialog.setTitle("推荐");
                 dialog.setMessage(temp);
@@ -84,15 +84,15 @@ public class UserLastTimeActivity extends AppCompatActivity {
                 finish();
             }
         });
-        CallInfoService callInfoService = new CallInfoService(MainActivity.dbHelper);
-        callInfoService.getCallinfos();
-        callInfoService.updateKITH_AND_KIN();
-        IDUDDatabase idudDatabase1 =new IDUDDatabase("KITH_AND_KIN",MainActivity.dbHelper);
-        IDUDDatabase idudDatabase2 =new IDUDDatabase("PHOTO",MainActivity.dbHelper);
-        IDUDDatabase idudDatabase3 =new IDUDDatabase("WORD",MainActivity.dbHelper);
-        List<CallInfo> list1 = idudDatabase1.selectAll();
-        List<PhotoInfo> list2 = idudDatabase2.selectAll2();
-        List<WordInfo> list3 = idudDatabase3.selectAll3();
+        CallInfoBiz callInfoBiz = new CallInfoBiz(MainActivity.dbHelper);
+        callInfoBiz.getCallinfos();
+        callInfoBiz.updateKITH_AND_KIN();
+        DatabaseBiz databaseBiz1 =new DatabaseBiz("KITH_AND_KIN",MainActivity.dbHelper);
+        DatabaseBiz databaseBiz2 =new DatabaseBiz("PHOTO",MainActivity.dbHelper);
+        DatabaseBiz databaseBiz3 =new DatabaseBiz("WORD",MainActivity.dbHelper);
+        List<CallInfo> list1 = databaseBiz1.selectAll();
+        List<PhotoInfo> list2 = databaseBiz2.selectAll2();
+        List<WordInfo> list3 = databaseBiz3.selectAll3();
         List<String> data =new ArrayList<>();
         if(list1.size()!=0){
             for(CallInfo attribute:list1){

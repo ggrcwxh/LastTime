@@ -22,10 +22,10 @@ import android.widget.Toast;
 import com.example.lasttime.LastTimeDatabaseHelper;
 import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
-import com.example.lasttime.service.CallInfoService;
+import com.example.lasttime.util.CallInfoBiz;
 import com.example.lasttime.service.HttpToServer;
-import com.example.lasttime.service.PhotoExifService;
-import com.example.lasttime.service.RecommendService;
+import com.example.lasttime.util.PhotoExifBiz;
+import com.example.lasttime.util.RecommendBiz;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -74,15 +74,15 @@ public class MainActivity extends AppCompatActivity {
         confirm=(Button)findViewById(R.id.main_confirm);
         recommend=(Button)findViewById(R.id.title_recommend);
         //执行读取通话记录，更新数据库
-        CallInfoService callInfoService = new CallInfoService(dbHelper);
-        callInfoService.getCallInfos();
-        callInfoService.updateKITH_AND_KIN();
+        CallInfoBiz callInfoBiz = new CallInfoBiz(dbHelper);
+        callInfoBiz.getCallInfos();
+        callInfoBiz.updateKITH_AND_KIN();
         //以下title栏的按钮点击事件
         recommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecommendService recommendService = new RecommendService();
-                String temp =recommendService.getRecommend();
+                RecommendBiz recommendBiz = new RecommendBiz();
+                String temp = recommendBiz.getRecommend();
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                 dialog.setTitle("推荐");
                 dialog.setMessage(temp);
@@ -225,8 +225,8 @@ public class MainActivity extends AppCompatActivity {
                 );
             }
             //将照片地址送入读取exif相关类交给后台处理
-            PhotoExifService photoExifService = new PhotoExifService(mImagePath);
-            Boolean flag=photoExifService.getDateLatitudeLongitude();
+            PhotoExifBiz photoExifBiz = new PhotoExifBiz(mImagePath);
+            Boolean flag= photoExifBiz.getDateLatitudeLongitude();
             if(flag){
                 Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库,可以在记录中查看啦",Toast.LENGTH_SHORT).show();
             }
@@ -261,8 +261,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            PhotoExifService photoExifService = new PhotoExifService(mImagePath);
-            Boolean flag=photoExifService.getDateLatitudeLongitude();
+            PhotoExifBiz photoExifBiz = new PhotoExifBiz(mImagePath);
+            Boolean flag= photoExifBiz.getDateLatitudeLongitude();
             if(flag){
                 Toast.makeText(MainActivity.this,"已经帮您将相关信息存入数据库,可以在记录中查看啦",Toast.LENGTH_SHORT).show();
             }

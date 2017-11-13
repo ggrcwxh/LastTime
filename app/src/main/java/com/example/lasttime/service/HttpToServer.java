@@ -2,6 +2,7 @@ package com.example.lasttime.service;
 
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.WordInfo;
+import com.example.lasttime.util.DatabaseBiz;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by 67014 on 2017/11/1.
  * 此类用于和服务器交互来获取用户手写输入分类
- * 这段代码暂时被放弃
+ * 这个类暂时被放弃但是为了避免日后需要使用，依然保留在代码中
  */
 
 public class HttpToServer extends Thread{
@@ -61,17 +62,17 @@ public class HttpToServer extends Thread{
 
     }
     public void updateToDatabase(){
-        IDUDDatabase idudDatabase = new IDUDDatabase("WORD",null,null,wordInfo, MainActivity.dbHelper);
-        List<WordInfo> list = idudDatabase.selectAll3();
+        DatabaseBiz databaseBiz = new DatabaseBiz("WORD",null,null,wordInfo, MainActivity.dbHelper);
+        List<WordInfo> list = databaseBiz.selectAll3();
         boolean flag = false;
         for(WordInfo attribute : list){
             if(wordInfo.getClassification().equals(attribute.getClassification())){
-                idudDatabase.update();
+                databaseBiz.update();
                 flag=true;
             }
         }
         if(flag==false){
-            idudDatabase.insert();
+            databaseBiz.insert();
         }
     }
 }

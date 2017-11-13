@@ -7,7 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.lasttime.R;
-import com.example.lasttime.service.RecommendService;
 
 /**
  * Created by ggrc on 2017/11/11.

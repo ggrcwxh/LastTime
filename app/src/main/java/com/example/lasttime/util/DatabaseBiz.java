@@ -1,4 +1,4 @@
-package com.example.lasttime.service;
+package com.example.lasttime.util;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.lasttime.LastTimeDatabaseHelper;
 import com.example.lasttime.domain.CallInfo;
+import com.example.lasttime.domain.CommemorationInfo;
 import com.example.lasttime.domain.PhotoInfo;
 import com.example.lasttime.domain.WordInfo;
 
@@ -17,20 +18,21 @@ import java.util.List;
  * 此类用于数据库的增删改查
  */
 
-public class IDUDDatabase {
+public class DatabaseBiz {
     private LastTimeDatabaseHelper dbHelper;
     private CallInfo callInfo;
     private PhotoInfo photoInfo;
     private WordInfo wordInfo;
+    private CommemorationInfo commemorationInfo;
     private String table;//表名称
-    public IDUDDatabase(String table , CallInfo callInfo, PhotoInfo photoInfo, WordInfo wordInfo, LastTimeDatabaseHelper dbHelper){
+    public DatabaseBiz(String table , CallInfo callInfo, PhotoInfo photoInfo, WordInfo wordInfo, LastTimeDatabaseHelper dbHelper){
         this.table=table;
         this.callInfo=callInfo;
         this.photoInfo=photoInfo;
         this.wordInfo=wordInfo;
         this.dbHelper=dbHelper;
     }
-    public IDUDDatabase(String table, LastTimeDatabaseHelper dbHelper){
+    public DatabaseBiz(String table, LastTimeDatabaseHelper dbHelper){
         this.table=table;
         this.dbHelper=dbHelper;
     }

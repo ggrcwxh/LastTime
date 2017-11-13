@@ -40,7 +40,7 @@ public class LastTimeDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_KITH_AND_KIN);//这个表用于存储同步通话记录后的信息
         sqLiteDatabase.execSQL(CREATE_PHOTO);//这个表用于储存拍照记录后的信息
-        sqLiteDatabase.execSQL(CREATE_WORD);//这个表用于手动输入记录后的信息
+        sqLiteDatabase.execSQL(CREATE_WORD);//这个表用于存储手动输入记录后的信息
         sqLiteDatabase.execSQL(CREATE_COMMEMORATION);//这个表用于存储用户想被记录的信息
     }
 

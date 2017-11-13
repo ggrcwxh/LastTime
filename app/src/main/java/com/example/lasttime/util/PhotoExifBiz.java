@@ -1,8 +1,9 @@
-package com.example.lasttime.service;
+package com.example.lasttime.util;
 
 import android.media.ExifInterface;
 
 import com.example.lasttime.domain.PhotoInfo;
+import com.example.lasttime.service.HttpToBaiDuMapService;
 
 
 import java.io.IOException;
@@ -21,13 +22,13 @@ import java.util.concurrent.Future;
  * 此类用于读取照片中的exif信息，是PhotoInfo的行为类
  */
 
-public class PhotoExifService {
+public class PhotoExifBiz {
 
         private String path;
         private PhotoInfo photoInfo = new PhotoInfo();
         private float output1 = 0;
         private float output2 = 0;
-        public PhotoExifService(String path)
+        public PhotoExifBiz(String path)
         {
             this.path=path;
         }

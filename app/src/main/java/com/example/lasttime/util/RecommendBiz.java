@@ -1,9 +1,10 @@
-package com.example.lasttime.service;
+package com.example.lasttime.util;
 
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.domain.PhotoInfo;
 import com.example.lasttime.domain.WordInfo;
+import com.example.lasttime.util.DatabaseBiz;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +16,18 @@ import static java.lang.System.currentTimeMillis;
  * 用来向用户推荐一件事
  */
 
-public class RecommendService {
+public class RecommendBiz {
     List<CallInfo> callInfos = new ArrayList<>();
     List<PhotoInfo> photoInfos = new ArrayList<>();
     List<WordInfo> wordInfos = new ArrayList<>();
     String recommend;
-    public RecommendService(){
-        IDUDDatabase idudDatabase1 = new IDUDDatabase("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
-        IDUDDatabase idudDatabase2 = new IDUDDatabase("PHOTO",null,null,null, MainActivity.dbHelper);
-        IDUDDatabase idudDatabase3 = new IDUDDatabase("WORD",null,null,null, MainActivity.dbHelper);
-        callInfos = idudDatabase1.selectAll();
-        photoInfos = idudDatabase2.selectAll2();
-        wordInfos = idudDatabase3.selectAll3();
+    public RecommendBiz(){
+        DatabaseBiz databaseBiz1 = new DatabaseBiz("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
+        DatabaseBiz databaseBiz2 = new DatabaseBiz("PHOTO",null,null,null, MainActivity.dbHelper);
+        DatabaseBiz databaseBiz3 = new DatabaseBiz("WORD",null,null,null, MainActivity.dbHelper);
+        callInfos = databaseBiz1.selectAll();
+        photoInfos = databaseBiz2.selectAll2();
+        wordInfos = databaseBiz3.selectAll3();
     }
     public String getRecommend(){
         long max=0;
