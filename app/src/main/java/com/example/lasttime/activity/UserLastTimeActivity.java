@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,7 +15,7 @@ import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.domain.PhotoInfo;
 import com.example.lasttime.domain.WordInfo;
 import com.example.lasttime.service.CallInfoService;
-import com.example.lasttime.service.IDUDDatebase;
+import com.example.lasttime.service.IDUDDatabase;
 import com.example.lasttime.service.RecommendService;
 
 import java.util.ArrayList;
@@ -88,12 +87,12 @@ public class UserLastTimeActivity extends AppCompatActivity {
         CallInfoService callInfoService = new CallInfoService(MainActivity.dbHelper);
         callInfoService.getCallinfos();
         callInfoService.updateKITH_AND_KIN();
-        IDUDDatebase idudDatebase1=new IDUDDatebase("KITH_AND_KIN",MainActivity.dbHelper);
-        IDUDDatebase idudDatebase2=new IDUDDatebase("PHOTO",MainActivity.dbHelper);
-        IDUDDatebase idudDatebase3=new IDUDDatebase("WORD",MainActivity.dbHelper);
-        List<CallInfo> list1 = idudDatebase1.selectAll();
-        List<PhotoInfo> list2 = idudDatebase2.selectAll2();
-        List<WordInfo> list3 = idudDatebase3.selectAll3();
+        IDUDDatabase idudDatabase1 =new IDUDDatabase("KITH_AND_KIN",MainActivity.dbHelper);
+        IDUDDatabase idudDatabase2 =new IDUDDatabase("PHOTO",MainActivity.dbHelper);
+        IDUDDatabase idudDatabase3 =new IDUDDatabase("WORD",MainActivity.dbHelper);
+        List<CallInfo> list1 = idudDatabase1.selectAll();
+        List<PhotoInfo> list2 = idudDatabase2.selectAll2();
+        List<WordInfo> list3 = idudDatabase3.selectAll3();
         List<String> data =new ArrayList<>();
         if(list1.size()!=0){
             for(CallInfo attribute:list1){

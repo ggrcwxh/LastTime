@@ -6,15 +6,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.lasttime.R;
 import com.example.lasttime.domain.CallInfo;
-import com.example.lasttime.service.CallInfoService;
-import com.example.lasttime.service.IDUDDatebase;
+import com.example.lasttime.service.IDUDDatabase;
 import com.example.lasttime.service.RecommendService;
 
 /**
@@ -87,8 +85,8 @@ public class SetKinAndKithActivity extends AppCompatActivity {
                 String num  = numsedittext.getText().toString();
                 if(!call.equals("")&&!num.equals("")){
                     CallInfo callInfo = new CallInfo(call,num);
-                    IDUDDatebase idudDatebase = new IDUDDatebase("KITH_AND_KIN",callInfo,null,null,MainActivity.dbHelper);
-                    idudDatebase.insert();
+                    IDUDDatabase idudDatabase = new IDUDDatabase("KITH_AND_KIN",callInfo,null,null,MainActivity.dbHelper);
+                    idudDatabase.insert();
                     Toast.makeText(SetKinAndKithActivity.this,"已经存入数据库",Toast.LENGTH_SHORT).show();
                 }
                 else{

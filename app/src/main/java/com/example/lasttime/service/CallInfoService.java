@@ -76,14 +76,14 @@ public class CallInfoService {
     }
     //调用IDUDDatebase中的方法更新数据库
     public void updateKITH_AND_KIN(){
-        IDUDDatebase idudDatebase = new IDUDDatebase("KITH_AND_KIN",dbHelper);
-        List<CallInfo> callinfos2 = idudDatebase.selectAll();
+        IDUDDatabase idudDatabase = new IDUDDatabase("KITH_AND_KIN",dbHelper);
+        List<CallInfo> callinfos2 = idudDatabase.selectAll();
         if(callinfos2==null)return;
         for(CallInfo attribute: this.callinfos){
             for(CallInfo attribute2: callinfos2){
                 if(attribute.getNum().equals(attribute2.getNum())&&attribute.getDate()>attribute2.getDate()){
-                    IDUDDatebase idudDatebase2 = new IDUDDatebase("KITH_AND_KIN",attribute,null,null,dbHelper);
-                    idudDatebase2.update();
+                    IDUDDatabase idudDatabase2 = new IDUDDatabase("KITH_AND_KIN",attribute,null,null,dbHelper);
+                    idudDatabase2.update();
                 }
             }
         }

@@ -1,14 +1,9 @@
 package com.example.lasttime.service;
 
 
-import android.app.Dialog;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 
-import com.example.lasttime.MyApplication;
-
-import com.example.lasttime.activity.BlankActivity;
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.PhotoInfo;
 
@@ -112,17 +107,17 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Callable
             return false;
         }
         photoInfo = new PhotoInfo(s,photoPath,date,0);
-        IDUDDatebase idudDatebase =new IDUDDatebase("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
-        List<PhotoInfo> list=idudDatebase.selectAll2();
+        IDUDDatabase idudDatabase =new IDUDDatabase("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
+        List<PhotoInfo> list= idudDatabase.selectAll2();
         boolean flag = false;
         for(PhotoInfo attribute: list){
             if(attribute.getPlace().equals(photoInfo.getPlace())){
-                idudDatebase.update();
+                idudDatabase.update();
                 flag=true;
             }
         }
         if(flag==false){
-            idudDatebase.insert();
+            idudDatabase.insert();
         }
         return true;
 

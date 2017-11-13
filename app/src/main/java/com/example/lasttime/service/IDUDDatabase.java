@@ -17,20 +17,20 @@ import java.util.List;
  * 此类用于数据库的增删改查
  */
 
-public class IDUDDatebase {
+public class IDUDDatabase {
     private LastTimeDatabaseHelper dbHelper;
     private CallInfo callInfo;
     private PhotoInfo photoInfo;
     private WordInfo wordInfo;
     private String table;//表名称
-    public IDUDDatebase(String table ,CallInfo callInfo,PhotoInfo photoInfo,WordInfo wordInfo,LastTimeDatabaseHelper dbHelper){
+    public IDUDDatabase(String table , CallInfo callInfo, PhotoInfo photoInfo, WordInfo wordInfo, LastTimeDatabaseHelper dbHelper){
         this.table=table;
         this.callInfo=callInfo;
         this.photoInfo=photoInfo;
         this.wordInfo=wordInfo;
         this.dbHelper=dbHelper;
     }
-    public IDUDDatebase(String table,LastTimeDatabaseHelper dbHelper){
+    public IDUDDatabase(String table, LastTimeDatabaseHelper dbHelper){
         this.table=table;
         this.dbHelper=dbHelper;
     }

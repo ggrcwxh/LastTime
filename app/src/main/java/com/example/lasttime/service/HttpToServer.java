@@ -5,7 +5,6 @@ import com.example.lasttime.domain.WordInfo;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
@@ -61,17 +60,17 @@ public class HttpToServer extends Thread{
 
     }
     public void updateToDatabase(){
-        IDUDDatebase idudDatebase = new IDUDDatebase("WORD",null,null,wordInfo, MainActivity.dbHelper);
-        List<WordInfo> list = idudDatebase.selectAll3();
+        IDUDDatabase idudDatabase = new IDUDDatabase("WORD",null,null,wordInfo, MainActivity.dbHelper);
+        List<WordInfo> list = idudDatabase.selectAll3();
         boolean flag = false;
         for(WordInfo attribute : list){
             if(wordInfo.getClassification().equals(attribute.getClassification())){
-                idudDatebase.update();
+                idudDatabase.update();
                 flag=true;
             }
         }
         if(flag==false){
-            idudDatebase.insert();
+            idudDatabase.insert();
         }
     }
 }

@@ -21,12 +21,12 @@ public class RecommendService {
     List<WordInfo> wordInfos = new ArrayList<>();
     String recommend;
     public RecommendService(){
-        IDUDDatebase idudDatebase1 = new IDUDDatebase("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
-        IDUDDatebase idudDatebase2 = new IDUDDatebase("PHOTO",null,null,null, MainActivity.dbHelper);
-        IDUDDatebase idudDatebase3 = new IDUDDatebase("WORD",null,null,null, MainActivity.dbHelper);
-        callInfos = idudDatebase1.selectAll();
-        photoInfos = idudDatebase2.selectAll2();
-        wordInfos = idudDatebase3.selectAll3();
+        IDUDDatabase idudDatabase1 = new IDUDDatabase("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
+        IDUDDatabase idudDatabase2 = new IDUDDatabase("PHOTO",null,null,null, MainActivity.dbHelper);
+        IDUDDatabase idudDatabase3 = new IDUDDatabase("WORD",null,null,null, MainActivity.dbHelper);
+        callInfos = idudDatabase1.selectAll();
+        photoInfos = idudDatabase2.selectAll2();
+        wordInfos = idudDatabase3.selectAll3();
     }
     public String getRecommend(){
         long max=0;

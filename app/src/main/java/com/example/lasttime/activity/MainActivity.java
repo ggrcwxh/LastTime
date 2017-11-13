@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,27 +15,21 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lasttime.LastTimeDatabaseHelper;
 import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
-import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.service.CallInfoService;
 import com.example.lasttime.service.HttpToServer;
-import com.example.lasttime.service.IDUDDatebase;
 import com.example.lasttime.service.PhotoExifService;
 import com.example.lasttime.service.RecommendService;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by ggrc on 2017/10/27.
