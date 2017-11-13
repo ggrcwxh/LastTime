@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Created by 67014 on 2017/11/1.
  * 此类用于和服务器交互来获取用户手写输入分类
+ * 这段代码暂时被放弃
  */
 
 public class HttpToServer extends Thread{
