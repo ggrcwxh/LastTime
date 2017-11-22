@@ -3,6 +3,7 @@ package com.example.lasttime.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -27,7 +28,12 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
         setContentView(R.layout.start_activity_layout);
+        ActionBar actionbar=getSupportActionBar();
+        if(actionbar!=null){
+            actionbar.hide();
+        }
         text = (TextView) findViewById(R.id.count_down);
+        timer.schedule(task,0,UPADATE_UI_TIME);//动态跟新倒计时TextView
         handler1.postDelayed(new Runnable() {  //使用handler的postDelayed实现延时跳转
             public void run() {
                 Intent intent = new Intent(StartActivity.this, MainActivity.class);
@@ -35,7 +41,7 @@ public class StartActivity extends AppCompatActivity {
                 finish();
             }
         }, SKIP_TIME);//3秒后跳转至应用主界面MainActivity
-        timer.schedule(task, 1000);//动态跟新倒计时TextView
+
     }
         TimerTask task = new TimerTask() {
             @Override
@@ -45,7 +51,7 @@ public class StartActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         count--;
-                        text.setText("倒计时"+count);
+                        text.setText("倒计时"+count+"s");
                         if(count <0){
                             timer.cancel();
                         }
