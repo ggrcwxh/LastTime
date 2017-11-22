@@ -18,7 +18,7 @@ import java.util.TimerTask;
 
 public class StartActivity extends AppCompatActivity {
     private final static int SKIP_TIME=3300;
-    private final static int UPADATE_UI_TIME=900;
+    private final static int UPADATE_UI_TIME=950;
     private Handler handler1 = new Handler();
     private Handler handler2 = new Handler();
     private TextView text;
