@@ -37,7 +37,7 @@ public class DatabaseBiz {
         this.dbHelper=dbHelper;
     }
     //用于数据库的插入操作
-    public void insert(){
+    public synchronized void insert(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(table.equals("KITH_AND_KIN")){
             ContentValues values = new ContentValues();
@@ -64,7 +64,7 @@ public class DatabaseBiz {
         }
     }
     //用于更新数据库操作
-    public void update(){
+    public synchronized void update(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(table.equals("KITH_AND_KIN")){
             ContentValues values = new ContentValues();
@@ -87,7 +87,7 @@ public class DatabaseBiz {
         }
     }
     //专门用于查询frequency
-    public long selectFrequency() {
+    public synchronized long selectFrequency() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(table.equals("KITH_AND_KIN")){
             String[] temp ={"frequency"};
@@ -120,7 +120,7 @@ public class DatabaseBiz {
         return 0;
     }
     //专门用来查询KITH_AND_KIN表中的所有行
-    public List<CallInfo> selectAll() {
+    public synchronized List<CallInfo> selectAll() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if (table.equals("KITH_AND_KIN")) {
             List<CallInfo> callInfos = new ArrayList<CallInfo>();
@@ -139,7 +139,7 @@ public class DatabaseBiz {
         return null;
     }
     //专门用来查询PHOTO表中所有行
-    public List<PhotoInfo> selectAll2(){
+    public synchronized List<PhotoInfo> selectAll2(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if (table.equals("PHOTO")) {
             List<PhotoInfo> photoInfos = new ArrayList<PhotoInfo>();
@@ -157,7 +157,7 @@ public class DatabaseBiz {
         return null;
     }
     //专门用来查询WORD表中的所有行
-    public List<WordInfo> selectAll3(){
+    public synchronized List<WordInfo> selectAll3(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(table.equals("WORD")){
             List<WordInfo> wordInfos = new ArrayList<>();
@@ -172,7 +172,7 @@ public class DatabaseBiz {
         }
         return null;
     }
-    public void delete(String attribute){
+    public synchronized void delete(String attribute){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(table.equals("KITH_AND_KIN")){
             db.delete(table,"call=?",new String[] {attribute});

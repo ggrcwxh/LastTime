@@ -39,13 +39,14 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="E9ZYWuO733BgH6Epr8ZqjvG2Ai5L4l7n	" >
         </meta-data>
-        <activity android:name=".activity.MainActivity" android:launchMode="singleTask">
+        <activity android:name=".activity.StartActivity" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
 
             </intent-filter>
         </activity>
+        <activity android:name=".activity.MainActivity" android:launchMode="singleTask"></activity>
         <activity android:name=".activity.SetActivity" android:launchMode="singleTask"></activity>
         <activity android:name=".activity.UserLastTimeActivity"  ></activity>
         <activity android:name=".activity.DeleteKinAndKithActivity" ></activity>
