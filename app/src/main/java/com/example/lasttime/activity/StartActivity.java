@@ -52,7 +52,7 @@ public class StartActivity extends AppCompatActivity {
                     public void run() {
                         count--;
                         text.setText("倒计时"+count+"s");
-                        if(count <0){
+                        if(count ==0){
                             timer.cancel();
                         }
                     }
