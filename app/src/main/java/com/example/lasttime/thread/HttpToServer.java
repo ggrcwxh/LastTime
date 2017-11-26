@@ -2,7 +2,7 @@ package com.example.lasttime.thread;
 
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.WordInfo;
-import com.example.lasttime.util.DatabaseBiz;
+import com.example.lasttime.biz.DatabaseBiz;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

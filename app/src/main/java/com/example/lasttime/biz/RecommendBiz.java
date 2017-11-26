@@ -1,10 +1,9 @@
-package com.example.lasttime.util;
+package com.example.lasttime.biz;
 
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.domain.PhotoInfo;
 import com.example.lasttime.domain.WordInfo;
-import com.example.lasttime.util.DatabaseBiz;
 
 import java.util.ArrayList;
 import java.util.List;

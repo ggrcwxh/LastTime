@@ -14,9 +14,9 @@ import com.example.lasttime.R;
 import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.domain.PhotoInfo;
 import com.example.lasttime.domain.WordInfo;
-import com.example.lasttime.util.CallInfoBiz;
-import com.example.lasttime.util.DatabaseBiz;
-import com.example.lasttime.util.RecommendBiz;
+import com.example.lasttime.biz.CallInfoBiz;
+import com.example.lasttime.biz.DatabaseBiz;
+import com.example.lasttime.biz.RecommendBiz;
 
 import java.util.ArrayList;
 import java.util.List;

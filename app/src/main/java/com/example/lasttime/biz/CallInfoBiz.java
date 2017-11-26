@@ -1,4 +1,4 @@
-package com.example.lasttime.util;
+package com.example.lasttime.biz;
 
 import android.Manifest;
 import android.content.ContentResolver;
@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import com.example.lasttime.LastTimeDatabaseHelper;
 import com.example.lasttime.MyApplication;
 import com.example.lasttime.domain.CallInfo;
-import com.example.lasttime.util.DatabaseBiz;
 
 import java.util.ArrayList;
 import java.util.List;

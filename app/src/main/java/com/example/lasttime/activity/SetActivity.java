@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.example.lasttime.R;
 import com.example.lasttime.domain.CallInfo;
-import com.example.lasttime.util.DatabaseBiz;
-import com.example.lasttime.util.RecommendBiz;
+import com.example.lasttime.biz.DatabaseBiz;
+import com.example.lasttime.biz.RecommendBiz;
 
 /**
  * Created by ggrc on 2017/10/27.

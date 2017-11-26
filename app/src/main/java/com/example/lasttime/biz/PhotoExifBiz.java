@@ -1,4 +1,4 @@
-package com.example.lasttime.util;
+package com.example.lasttime.biz;
 
 import android.media.ExifInterface;
 

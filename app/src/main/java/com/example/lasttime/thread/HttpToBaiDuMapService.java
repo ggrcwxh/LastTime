@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.PhotoInfo;
-import com.example.lasttime.util.DatabaseBiz;
+import com.example.lasttime.biz.DatabaseBiz;
 
 import org.json.JSONException;
 import org.json.JSONObject;
