@@ -1,55 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/title_layout"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
     <android.support.percent.PercentFrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-        <RelativeLayout
-            app:layout_widthPercent="100%"
-            app:layout_heightPercent="35%"
-            >
-            <Button
-                android:id="@+id/main_camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="通过相机记录"/>
-            <Button
-                android:id="@+id/main_album"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/main_camera"
-                android:layout_centerHorizontal="true"
-                android:text="从相册中读取"/>
-        </RelativeLayout>
-        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            app:layout_heightPercent="95%"/>
+        <LinearLayout
             android:layout_gravity="bottom"
-            app:layout_widthPercent="100%"
-            app:layout_heightPercent="60%"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <EditText
-                    android:id="@+id/main_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:hint="记录你想被提醒的事情"/>
-                <Button
-                    android:id="@+id/main_confirm"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="确定"/>
-            </LinearLayout>
-        </RelativeLayout>
+            android:layout_width="match_parent"
+            app:layout_heightPercent="5%">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/home"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/set"
+                />
 
+
+        </LinearLayout>
     </android.support.percent.PercentFrameLayout>
+
+
 </LinearLayout>

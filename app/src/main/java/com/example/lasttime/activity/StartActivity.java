@@ -1,19 +1,26 @@
 package com.example.lasttime.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
 import com.example.lasttime.util.CheckInternet;
+import com.example.lasttime.util.CreateFile;
+
+import java.io.File;
 
 
 /**
@@ -25,14 +32,15 @@ import com.example.lasttime.util.CheckInternet;
 public class StartActivity extends AppCompatActivity {
     private final static int SKIP_TIME=2200;
     private Handler handler1 = new Handler();
+    private String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
         setContentView(R.layout.start_activity_layout);
-        ActionBar actionbar=getSupportActionBar();
-        if(actionbar!=null){
-            actionbar.hide();
-        }
+        CreateFile.createFile();
         if(!CheckInternet.isConnectingToInternet(MyApplication.getContext())){
             Toast.makeText(StartActivity.this,"没有网络哦，部分功能会受限制",Toast.LENGTH_SHORT).show();
         }

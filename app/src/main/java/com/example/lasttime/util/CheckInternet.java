@@ -4,18 +4,16 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
-import android.util.Log;
+
 
 /**
- * Created by 67014 on 2017/11/26.
+ * Created by ggrcwxh on 2017/11/26.
  */
 
 public class CheckInternet {
     /**
      * 判断移动网络是否连接成功
-     *
-     * @param context
-     * @return
+     * @param context 全局context
      */
     public static final boolean isConnectingToInternet(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context

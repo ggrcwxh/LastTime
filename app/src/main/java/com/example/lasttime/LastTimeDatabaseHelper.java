@@ -59,10 +59,10 @@ public class LastTimeDatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_KITH_AND_KIN_TABLE);//这个表用于存储同步通话记录后的信息
         sqLiteDatabase.execSQL(CREATE_PHOTO_TABLE);//这个表用于储存拍照记录后的信息
         sqLiteDatabase.execSQL(CREATE_WORD);//这个表用于存储手动输入记录后的信息
-        sqLiteDatabase.execSQL(CREATE_COMMEMORATION);//这个表用于存储用户想被记录的信息
-        sqLiteDatabase.execSQL(CREATE_POINT_IN_TIME_OF_COMMEMORATION);
-        sqLiteDatabase.execSQL(CREATE_RIGHT_COMMEMORATION_FREQUENCY);
-        sqLiteDatabase.execSQL(CREATE_RECORD_NUMS);
+//        sqLiteDatabase.execSQL(CREATE_COMMEMORATION);//这个表用于存储用户想被记录的信息
+  //      sqLiteDatabase.execSQL(CREATE_POINT_IN_TIME_OF_COMMEMORATION);
+        //sqLiteDatabase.execSQL(CREATE_RIGHT_COMMEMORATION_FREQUENCY);
+        //sqLiteDatabase.execSQL(CREATE_RECORD_NUMS);
 
     }
 
