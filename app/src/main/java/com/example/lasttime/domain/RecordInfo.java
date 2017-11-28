@@ -7,9 +7,11 @@ package com.example.lasttime.domain;
 public class RecordInfo {
     private String record;
     private long lastTime;
-    public RecordInfo(String record,long lastTime){
+    private String imageId;
+    public RecordInfo(String record,long lastTime,String imageId){
         this.record=record;
         this.lastTime=lastTime;
+        this.imageId=imageId;
     }
 
     public String getRecord() {
@@ -26,5 +28,16 @@ public class RecordInfo {
 
     public void setLastTime(long lastTime) {
         this.lastTime = lastTime;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
+    public String toString(){
+        return String.format("离上一次: %s , %d天",record,lastTime);
     }
 }
