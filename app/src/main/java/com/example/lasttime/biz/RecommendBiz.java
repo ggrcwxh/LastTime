@@ -24,9 +24,9 @@ public class RecommendBiz {
         DatabaseBiz databaseBiz1 = new DatabaseBiz("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
         DatabaseBiz databaseBiz2 = new DatabaseBiz("PHOTO",null,null,null, MainActivity.dbHelper);
         DatabaseBiz databaseBiz3 = new DatabaseBiz("WORD",null,null,null, MainActivity.dbHelper);
-        callInfos = databaseBiz1.selectAll();
-        photoInfos = databaseBiz2.selectAll2();
-        wordInfos = databaseBiz3.selectAll3();
+        callInfos = databaseBiz1.selectAllPhone();
+        photoInfos = databaseBiz2.selectAllPhoto();
+        wordInfos = databaseBiz3.selectAllWord();
     }
     public String getRecommend(){
         long max=0;

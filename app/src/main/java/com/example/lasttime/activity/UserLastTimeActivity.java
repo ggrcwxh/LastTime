@@ -90,9 +90,9 @@ public class UserLastTimeActivity extends AppCompatActivity {
         DatabaseBiz databaseBiz1 =new DatabaseBiz("KITH_AND_KIN",MainActivity.dbHelper);
         DatabaseBiz databaseBiz2 =new DatabaseBiz("PHOTO",MainActivity.dbHelper);
         DatabaseBiz databaseBiz3 =new DatabaseBiz("WORD",MainActivity.dbHelper);
-        List<CallInfo> list1 = databaseBiz1.selectAll();
-        List<PhotoInfo> list2 = databaseBiz2.selectAll2();
-        List<WordInfo> list3 = databaseBiz3.selectAll3();
+        List<CallInfo> list1 = databaseBiz1.selectAllPhone();
+        List<PhotoInfo> list2 = databaseBiz2.selectAllPhoto();
+        List<WordInfo> list3 = databaseBiz3.selectAllWord();
         List<String> data =new ArrayList<>();
         if(list1.size()!=0){
             for(CallInfo attribute:list1){

@@ -36,6 +36,9 @@ public class DatabaseBiz {
         this.table=table;
         this.dbHelper=dbHelper;
     }
+    public DatabaseBiz(LastTimeDatabaseHelper dbHelper){
+        this.dbHelper=dbHelper;
+    }
     //用于数据库的插入操作
     public synchronized void insert(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -120,58 +123,52 @@ public class DatabaseBiz {
         return 0;
     }
     //专门用来查询KITH_AND_KIN表中的所有行
-    public synchronized List<CallInfo> selectAll() {
+    public synchronized List<CallInfo> selectAllPhone() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        if (table.equals("KITH_AND_KIN")) {
-            List<CallInfo> callInfos = new ArrayList<CallInfo>();
-            Cursor cursor = db.query(table, null, null, null, null, null, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                do {
-                    CallInfo callInfo = new CallInfo(cursor.getString(0), cursor.getString(1), cursor.getLong(2), cursor.getLong(3));
-                    callInfos.add(callInfo);
+        List<CallInfo> callInfos = new ArrayList<CallInfo>();
+        Cursor cursor = db.query(table, null, null, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                CallInfo callInfo = new CallInfo(cursor.getString(0), cursor.getString(1), cursor.getLong(2), cursor.getLong(3));
+                callInfos.add(callInfo);
 
-                } while (cursor.moveToNext());
+            } while (cursor.moveToNext());
 
-            }
+        }
             return callInfos;
 
-        }
-        return null;
+
     }
     //专门用来查询PHOTO表中所有行
-    public synchronized List<PhotoInfo> selectAll2(){
+    public synchronized List<PhotoInfo> selectAllPhoto(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        if (table.equals("PHOTO")) {
-            List<PhotoInfo> photoInfos = new ArrayList<PhotoInfo>();
-            Cursor cursor = db.query(table, null, null, null, null, null, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                do{
-                    PhotoInfo photoInfo = new PhotoInfo(cursor.getString(0),cursor.getString(1),cursor.getLong(2),cursor.getInt(3));
-                    photoInfos.add(photoInfo);
-                }while(cursor.moveToNext());
+        List<PhotoInfo> photoInfos = new ArrayList<PhotoInfo>();
+        Cursor cursor = db.query(table, null, null, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do{
+                PhotoInfo photoInfo = new PhotoInfo(cursor.getString(0),cursor.getString(1),cursor.getLong(2),cursor.getInt(3));
+                photoInfos.add(photoInfo);
+            }while(cursor.moveToNext());
 
-            }
-            return photoInfos;
+        }
+        return photoInfos;
      }
 
-        return null;
-    }
+
     //专门用来查询WORD表中的所有行
-    public synchronized List<WordInfo> selectAll3(){
+    public synchronized List<WordInfo> selectAllWord() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        if(table.equals("WORD")){
-            List<WordInfo> wordInfos = new ArrayList<>();
-            Cursor cursor = db.query(table, null, null, null, null, null, null);
-            if(cursor!=null&&cursor.moveToFirst()){
-                do{
-                    WordInfo wordInfo = new WordInfo(cursor.getString(0),cursor.getLong(1),cursor.getLong(2));
-                    wordInfos.add(wordInfo);
-                }while(cursor.moveToNext());
-            }
-            return wordInfos;
+        List<WordInfo> wordInfos = new ArrayList<>();
+        Cursor cursor = db.query(table, null, null, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                WordInfo wordInfo = new WordInfo(cursor.getString(0), cursor.getLong(1), cursor.getLong(2));
+                wordInfos.add(wordInfo);
+            } while (cursor.moveToNext());
         }
-        return null;
+        return wordInfos;
     }
+
     public synchronized void delete(String attribute){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(table.equals("KITH_AND_KIN")){

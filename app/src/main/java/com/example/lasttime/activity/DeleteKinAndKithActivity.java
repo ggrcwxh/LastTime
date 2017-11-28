@@ -84,7 +84,7 @@ public class DeleteKinAndKithActivity extends AppCompatActivity {
         ListView listView = (ListView)findViewById(R.id.delete_listview);
         //从数据库中读取所有联系人的信息
         databaseBiz = new DatabaseBiz("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
-        List<CallInfo> list = databaseBiz.selectAll();
+        List<CallInfo> list = databaseBiz.selectAllPhone();
         List<String> list2 = new ArrayList<>();
         List<String> list3 =new ArrayList<>();
         for(CallInfo attribute:list){

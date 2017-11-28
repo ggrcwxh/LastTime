@@ -63,7 +63,7 @@ public class HttpToServer extends Thread{
     }
     public void updateToDatabase(){
         DatabaseBiz databaseBiz = new DatabaseBiz("WORD",null,null,wordInfo, MainActivity.dbHelper);
-        List<WordInfo> list = databaseBiz.selectAll3();
+        List<WordInfo> list = databaseBiz.selectAllWord();
         boolean flag = false;
         for(WordInfo attribute : list){
             if(wordInfo.getClassification().equals(attribute.getClassification())){

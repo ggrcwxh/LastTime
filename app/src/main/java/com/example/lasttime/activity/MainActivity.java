@@ -27,13 +27,16 @@ import com.example.lasttime.LastTimeDatabaseHelper;
 import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
 import com.example.lasttime.biz.CallInfoBiz;
+import com.example.lasttime.domain.RecordInfo;
 import com.example.lasttime.thread.HttpToServer;
 import com.example.lasttime.biz.PhotoExifBiz;
 import com.example.lasttime.biz.RecommendBiz;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ggrcwxh on 2017/10/27.
@@ -51,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     //图片地址
     String mImagePath;
     RecyclerView recyclerView;
+    //记录
+    private List<RecordInfo> list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);

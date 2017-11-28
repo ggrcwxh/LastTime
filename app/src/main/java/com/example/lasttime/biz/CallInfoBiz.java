@@ -77,7 +77,7 @@ public class CallInfoBiz {
     //调用IDUDDatebase中的方法更新数据库
     public void updateKITH_AND_KIN(){
         DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",dbHelper);
-        List<CallInfo> callinfos2 = databaseBiz.selectAll();
+        List<CallInfo> callinfos2 = databaseBiz.selectAllPhone();
         if(callinfos2==null)return;
         for(CallInfo attribute: this.callinfos){
             for(CallInfo attribute2: callinfos2){

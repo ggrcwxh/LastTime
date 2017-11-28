@@ -110,7 +110,7 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Callable
         }
         photoInfo = new PhotoInfo(s,photoPath,date,0);
         DatabaseBiz databaseBiz =new DatabaseBiz("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
-        List<PhotoInfo> list= databaseBiz.selectAll2();
+        List<PhotoInfo> list= databaseBiz.selectAllPhoto();
         boolean flag = false;
         for(PhotoInfo attribute: list){
             if(attribute.getPlace().equals(photoInfo.getPlace())){
