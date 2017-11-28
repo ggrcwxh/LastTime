@@ -38,7 +38,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     @Override
     public void onBindViewHolder(RecordAdapter.ViewHolder holder, int position) {
         RecordInfo recordInfo = recordInfos.get(position);
-        holder.imageView.setImageResource(recordInfo.get);
+        holder.imageView.setImageResource(recordInfo.getImageId());
         holder.textView.setText(recordInfo.toString());
 
     }

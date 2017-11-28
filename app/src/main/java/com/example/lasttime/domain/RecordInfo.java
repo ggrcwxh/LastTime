@@ -7,8 +7,8 @@ package com.example.lasttime.domain;
 public class RecordInfo {
     private String record;
     private long lastTime;
-    private String imageId;
-    public RecordInfo(String record,long lastTime,String imageId){
+    private int imageId;
+    public RecordInfo(String record,long lastTime,int imageId){
         this.record=record;
         this.lastTime=lastTime;
         this.imageId=imageId;
@@ -30,11 +30,11 @@ public class RecordInfo {
         this.lastTime = lastTime;
     }
 
-    public String getImageId() {
+    public int getImageId() {
         return imageId;
     }
 
-    public void setImageId(String imageId) {
+    public void setImageId(int imageId) {
         this.imageId = imageId;
     }
     public String toString(){
