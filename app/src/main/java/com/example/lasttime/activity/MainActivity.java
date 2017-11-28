@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
     //数据库
     public static LastTimeDatabaseHelper dbHelper = new LastTimeDatabaseHelper(MyApplication.getContext(), "lasttime.db", null, 1);
     //图片地址
-    String mImagePath,mImagePath2;
+    String mImagePath;
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         CallInfoBiz callInfoBiz = new CallInfoBiz(dbHelper);
         callInfoBiz.getCallInfos();
         callInfoBiz.updateKITH_AND_KIN();
+        recyclerView =(RecyclerView)findViewById(R.id.main_recyclerview);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
