@@ -1,74 +1,71 @@
 package com.example.lasttime.activity;
 
+import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
+import com.example.lasttime.adapter.RecordAdapter;
+import com.example.lasttime.adapter.SetAdapter;
+import com.example.lasttime.biz.PhotoExifBiz;
 import com.example.lasttime.domain.CallInfo;
 import com.example.lasttime.biz.DatabaseBiz;
 import com.example.lasttime.biz.RecommendBiz;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by ggrc on 2017/10/27.
- * 此类是用来设置亲情号码的活动类
+ *
  */
 
 public class SetActivity extends AppCompatActivity {
-    Button add;
-    Button record;
-    Button set;
-    Button recommend;
-    Button delete;
+    private final int RESULT_CAPTURE_CODE = 200;
+    private final int RESULT_IMAGE_CODE = 100;
+    private final int OPEN_CAMERA = 222;
+    private final int GET_USER_CALL_INFO = 333;
+    private final int WRITE_USER_EXTERNAL_STORAGE = 111;
+    String mImagePath;
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
         setContentView(R.layout.set_activity_layout);
-        ActionBar actionbar=getSupportActionBar();
-        if(actionbar!=null){
-            actionbar.hide();
-        }
-        add=(Button)findViewById(R.id.title_add);
-        record=(Button)findViewById(R.id.title_record);
-        set=(Button)findViewById(R.id.title_set);
-        recommend=(Button)findViewById(R.id.title_recommend);
-        delete=(Button)findViewById(R.id.setkinandkith_delete);
-        final EditText calledittext = (EditText)findViewById(R.id.call_edit_text);
-        final EditText numsedittext  =(EditText)findViewById(R.id.num_edit_text);
-        Button confirm =(Button)findViewById(R.id.setkinandkith_confirm);
-        recommend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RecommendBiz recommendBiz = new RecommendBiz();
-                String temp = recommendBiz.getRecommend();
-                AlertDialog.Builder dialog = new AlertDialog.Builder(SetActivity.this);
-                dialog.setTitle("推荐");
-                dialog.setMessage(temp);
-                dialog.setCancelable(false);
-                dialog.setPositiveButton("确定",null);
-                dialog.show();
-            }
-        });
-        add.setOnClickListener(new View.OnClickListener() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        recyclerView =(RecyclerView)findViewById(R.id.set_recyclerview);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        SetAdapter adapter = new SetAdapter();
+        recyclerView.setAdapter(adapter);
+        Button home = (Button)findViewById(R.id.bottom_home);
+        Button set = (Button)findViewById(R.id.bottom_set);
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(SetActivity.this,MainActivity.class);
                 startActivity(intent);
-                finish();
-            }
-        });
-        record.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =new Intent(SetActivity.this,UserLastTimeActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
         set.setOnClickListener(new View.OnClickListener() {
@@ -77,48 +74,183 @@ public class SetActivity extends AppCompatActivity {
 
             }
         });
-        confirm.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                //读取edit上的数据
-                String call = calledittext.getText().toString();
-                String num  = numsedittext.getText().toString();
-                if(!call.equals("")&&!num.equals("")){
-                    CallInfo callInfo = new CallInfo(call,num);
-                    DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",callInfo,null,null,MainActivity.dbHelper);
-                    databaseBiz.insert();
-                    Toast.makeText(SetActivity.this,"已经存入数据库",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    if(call.equals("")&&call.equals("")){
-                        Toast.makeText(SetActivity.this,"称呼和号码都还没有输入哦",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        if(call.equals("")){
-                            Toast.makeText(SetActivity.this,"称呼还没输入哦",Toast.LENGTH_SHORT).show();
-                        }
-                        if(num.equals("")){
-                            Toast.makeText(SetActivity.this,"号码还没输入哦",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add:
+                break;
+            case R.id.write:
+                //
+                break;
+            case R.id.camera:
+                useCameraRecord();
+                break;
+            case R.id.album:
+                albumRecord();
+                break;
+        }
+        return true;
+    }
+    //使用相机记录
+    private final void useCameraRecord() {
+        //创造图片文件的文件名
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss")
+                .format(new Date());
+        //文件物理地址
+        mImagePath = "/sdcard/LastTime/picture/" + timeStamp + ".jpg";
+        //通过将给定路径名字符串转换成抽象路径名来创建一个新 File 实例
+        final File tmpCameraFile = new File(mImagePath);
+        //动态获取相机权限
+        boolean flag = false;
+        int permission = ActivityCompat.checkSelfPermission(SetActivity.this, Manifest.permission.CAMERA);
+        //为了防止手机在等待用户授权的同时继续并发执行下一步操作，造成程序崩溃，所以有两个打开相机语句
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    SetActivity.this,
+                    new String[]{Manifest.permission.CAMERA},
+                    OPEN_CAMERA);
+            //打开照相机
+            startActivityForResult(new Intent(
+                            MediaStore.ACTION_IMAGE_CAPTURE).putExtra(
+                    MediaStore.EXTRA_OUTPUT,
+                    Uri.fromFile(tmpCameraFile)),
+                    RESULT_CAPTURE_CODE);
 
-              //  CallInfoBiz callInfoService = new CallInfoBiz(MainActivity.dbHelper);
-               // callInfoService.getCallinfos();
-               // callInfoService.updateKITH_AND_KIN();
+        }
+        else{
+            //打开照相机
+            startActivityForResult(new Intent(
+                            MediaStore.ACTION_IMAGE_CAPTURE).putExtra(
+                    MediaStore.EXTRA_OUTPUT,
+                    Uri.fromFile(tmpCameraFile)),
+                    RESULT_CAPTURE_CODE);
+        }
+
+    }
+    //使用相册选择照片记录
+    private final void albumRecord() {
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss")
+                .format(new Date());
+        mImagePath = "/sdcard/LastTime/picture/" + timeStamp + ".jpg";
+        final File tmpCameraFile = new File(mImagePath);
+        String[] PERMISSIONS_STORAGE = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+        //动态获取存储器权限
+        int permission = ActivityCompat.checkSelfPermission(SetActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    SetActivity.this,
+                    PERMISSIONS_STORAGE,
+                    WRITE_USER_EXTERNAL_STORAGE
+            );
+            startActivityForResult(
+                    new Intent(Intent.ACTION_PICK).setType(
+                            "image/*").putExtra(
+                            MediaStore.EXTRA_OUTPUT,
+                            Uri.fromFile(tmpCameraFile)),
+                    RESULT_IMAGE_CODE);
+        }
+        //打开相册
+        else{
+            startActivityForResult(
+                    new Intent(Intent.ACTION_PICK).setType(
+                            "image/*").putExtra(
+                            MediaStore.EXTRA_OUTPUT,
+                            Uri.fromFile(tmpCameraFile)),
+                    RESULT_IMAGE_CODE);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String[] PERMISSIONS_STORAGE = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+        //如果是相机记录
+        if (requestCode == RESULT_CAPTURE_CODE && resultCode == RESULT_OK) {
+            //动态获取存储器权限
+            int permission = ActivityCompat.checkSelfPermission(SetActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                        SetActivity.this,
+                        PERMISSIONS_STORAGE,
+                        WRITE_USER_EXTERNAL_STORAGE
+                );
+                PhotoExifBiz photoExifBiz = new PhotoExifBiz(mImagePath);
+                Boolean flag = photoExifBiz.getDateLatitudeLongitude();
+                if (flag) {
+                    Toast.makeText(SetActivity.this, "已经帮您将相关信息存入数据库,可以在记录中查看啦", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(SetActivity.this);
+                    dialog.setTitle("抱歉");
+                    dialog.setMessage("无法读到你的图片的地址信息，如果是使用拍照功能的话请打开gps");
+                    dialog.setCancelable(false);
+                    dialog.setPositiveButton("确定", null);
+                    dialog.show();
+                }
 
             }
-        });
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(SetActivity.this,DeleteKinAndKithActivity.class);
-                startActivity(intent);
-
+            //将照片地址送入读取exif相关类交给后台处理
+            PhotoExifBiz photoExifBiz = new PhotoExifBiz(mImagePath);
+            Boolean flag = photoExifBiz.getDateLatitudeLongitude();
+            if (flag) {
+                Toast.makeText(SetActivity.this, "已经帮您将相关信息存入数据库,可以在记录中查看啦", Toast.LENGTH_SHORT).show();
+            } else {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(SetActivity.this);
+                dialog.setTitle("抱歉");
+                dialog.setMessage("无法读到你的图片的地址信息，如果是使用拍照功能的话请打开gps");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定", null);
+                dialog.show();
             }
-        });
 
-
+        }
+        //如果是照片记录
+        if (requestCode == RESULT_IMAGE_CODE && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            final String scheme = uri.getScheme();
+            String mImagePath = null;
+            //抽象路径转换为具体路径
+            if (scheme == null)
+                mImagePath = uri.getPath();
+            else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+                mImagePath = uri.getPath();
+            } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+                Cursor cursor = MyApplication.getContext().getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+                if (null != cursor) {
+                    if (cursor.moveToFirst()) {
+                        int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                        if (index > -1) {
+                            mImagePath = cursor.getString(index);
+                        }
+                    }
+                    cursor.close();
+                }
+            }
+            PhotoExifBiz photoExifBiz = new PhotoExifBiz(mImagePath);
+            Boolean flag = photoExifBiz.getDateLatitudeLongitude();
+            if (flag) {
+                Toast.makeText(SetActivity.this, "已经帮您将相关信息存入数据库,可以在记录中查看啦", Toast.LENGTH_SHORT).show();
+            } else {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(SetActivity.this);
+                dialog.setTitle("抱歉");
+                dialog.setMessage("无法读到你的图片的地址信息，如果是使用拍照功能的话请打开gps");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定", null);
+                dialog.show();
+            }
+        }
     }
 }

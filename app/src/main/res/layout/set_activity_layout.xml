@@ -12,6 +12,11 @@
     <android.support.percent.PercentFrameLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/set_recyclerview"
+            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            app:layout_heightPercent="90%"/>
         <LinearLayout
             android:layout_gravity="bottom"
             android:orientation="vertical"

@@ -21,6 +21,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView textView;
+
+
         public ViewHolder(View view){
             super(view);
             imageView=(ImageView)view.findViewById(R.id.record_item_image);
