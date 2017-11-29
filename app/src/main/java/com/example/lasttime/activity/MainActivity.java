@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,11 +27,13 @@ import android.widget.Toast;
 import com.example.lasttime.LastTimeDatabaseHelper;
 import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
+import com.example.lasttime.adapter.RecordAdapter;
 import com.example.lasttime.biz.CallInfoBiz;
 import com.example.lasttime.domain.RecordInfo;
 import com.example.lasttime.thread.HttpToServer;
 import com.example.lasttime.biz.PhotoExifBiz;
 import com.example.lasttime.biz.RecommendBiz;
+import com.example.lasttime.util.InitRecordList;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         //动态获取通话记录权限
         int checkCallPhonePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALL_LOG);
         if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
@@ -71,7 +75,13 @@ public class MainActivity extends AppCompatActivity {
         CallInfoBiz callInfoBiz = new CallInfoBiz(dbHelper);
         callInfoBiz.getCallInfos();
         callInfoBiz.updateKITH_AND_KIN();
+        List<RecordInfo> recordInfoList= InitRecordList.initRecordList();
         recyclerView =(RecyclerView)findViewById(R.id.main_recyclerview);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        RecordAdapter adapter = new RecordAdapter(recordInfoList);
+        recyclerView.setAdapter(adapter);
+        System.out.println("啊？");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

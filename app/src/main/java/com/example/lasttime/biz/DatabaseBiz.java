@@ -126,10 +126,10 @@ public class DatabaseBiz {
     public synchronized List<CallInfo> selectAllPhone() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         List<CallInfo> callInfos = new ArrayList<CallInfo>();
-        Cursor cursor = db.query(table, null, null, null, null, null, null);
+        Cursor cursor = db.query("KITH_AND_KIN", null, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                CallInfo callInfo = new CallInfo(cursor.getString(0), cursor.getString(1), cursor.getLong(2), cursor.getLong(3));
+                CallInfo callInfo = new CallInfo(cursor.getString(0), cursor.getString(1), cursor.getLong(2), (int)cursor.getLong(3));
                 callInfos.add(callInfo);
 
             } while (cursor.moveToNext());
@@ -143,10 +143,10 @@ public class DatabaseBiz {
     public synchronized List<PhotoInfo> selectAllPhoto(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         List<PhotoInfo> photoInfos = new ArrayList<PhotoInfo>();
-        Cursor cursor = db.query(table, null, null, null, null, null, null);
+        Cursor cursor = db.query("PHOTO", null, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do{
-                PhotoInfo photoInfo = new PhotoInfo(cursor.getString(0),cursor.getString(1),cursor.getLong(2),cursor.getInt(3));
+                PhotoInfo photoInfo = new PhotoInfo(cursor.getString(0),cursor.getString(1),cursor.getLong(2),(int)cursor.getLong(3));
                 photoInfos.add(photoInfo);
             }while(cursor.moveToNext());
 
@@ -159,10 +159,10 @@ public class DatabaseBiz {
     public synchronized List<WordInfo> selectAllWord() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         List<WordInfo> wordInfos = new ArrayList<>();
-        Cursor cursor = db.query(table, null, null, null, null, null, null);
+        Cursor cursor = db.query("WORD", null, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                WordInfo wordInfo = new WordInfo(cursor.getString(0), cursor.getLong(1), cursor.getLong(2));
+                WordInfo wordInfo = new WordInfo(cursor.getString(0), cursor.getLong(1), (int)cursor.getLong(2));
                 wordInfos.add(wordInfo);
             } while (cursor.moveToNext());
         }

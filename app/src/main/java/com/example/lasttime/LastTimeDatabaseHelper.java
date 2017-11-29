@@ -54,6 +54,8 @@ public class LastTimeDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_KITH_AND_KIN_TABLE);//这个表用于存储同步通话记录后的信息

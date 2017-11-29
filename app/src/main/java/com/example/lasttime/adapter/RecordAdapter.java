@@ -23,6 +23,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         TextView textView;
         public ViewHolder(View view){
             super(view);
+            imageView=(ImageView)view.findViewById(R.id.record_item_image);
+            textView=(TextView)view.findViewById(R.id.record_item_text);
         }
     }
     public RecordAdapter(List<RecordInfo> recordInfos){
@@ -39,7 +41,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     public void onBindViewHolder(RecordAdapter.ViewHolder holder, int position) {
         RecordInfo recordInfo = recordInfos.get(position);
         holder.imageView.setImageResource(recordInfo.getImageId());
-        holder.textView.setText(recordInfo.toString());
+        holder.textView.setText(recordInfo.getRecord());
 
     }
 

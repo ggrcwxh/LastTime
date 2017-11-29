@@ -6,11 +6,9 @@ package com.example.lasttime.domain;
 
 public class RecordInfo {
     private String record;
-    private long lastTime;
     private int imageId;
-    public RecordInfo(String record,long lastTime,int imageId){
+    public RecordInfo(String record,int imageId){
         this.record=record;
-        this.lastTime=lastTime;
         this.imageId=imageId;
     }
 
@@ -22,14 +20,6 @@ public class RecordInfo {
         this.record = record;
     }
 
-    public long getLastTime() {
-        return lastTime;
-    }
-
-    public void setLastTime(long lastTime) {
-        this.lastTime = lastTime;
-    }
-
     public int getImageId() {
         return imageId;
     }
@@ -37,7 +27,5 @@ public class RecordInfo {
     public void setImageId(int imageId) {
         this.imageId = imageId;
     }
-    public String toString(){
-        return String.format("离上一次: %s , %d天",record,lastTime);
-    }
+
 }

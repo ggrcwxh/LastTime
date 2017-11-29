@@ -1,15 +1,17 @@
 package com.example.lasttime.domain;
 
+import static java.lang.System.currentTimeMillis;
+
 /**
  * Created by ggrc on 2017/10/27.
  * 此类是用户通话信息数据类
  */
 
-public class CallInfo {
+public class CallInfo extends AbstractInfo {
     private String call;
     private String num;
     private long date;
-    private long frequency;
+
     public  CallInfo(String num,long date){
         this.num=num;
         this.date=date;
@@ -18,11 +20,12 @@ public class CallInfo {
         this.call=call;
         this.num=num;
     }
-    public CallInfo(String call,String num,long date,long frequency){
+    public CallInfo(String call,String num,long date,int frequency){
+        super(frequency);
         this.call=call;
         this.num=num;
         this.date=date;
-        this.frequency=frequency;
+
     }
     public String getCall() {
         return call;
@@ -48,11 +51,16 @@ public class CallInfo {
         this.date = date;
     }
 
-    public long getFrequency() {
+    public int getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(long frequency) {
+    public void setFrequency(int frequency) {
         this.frequency = frequency;
+    }
+
+    public String toString(){
+        long day= (currentTimeMillis()-getDate())/86400000;
+        return String.format("上一次: 离call%s已经有%d天了",call,day);
     }
 }
