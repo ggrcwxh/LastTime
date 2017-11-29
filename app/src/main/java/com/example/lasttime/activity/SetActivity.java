@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -74,6 +75,14 @@ public class SetActivity extends AppCompatActivity {
 
             }
         });
+        adapter.setOnItemClickListener(new SetAdapter.OnItemClickListener(){
+            @Override
+            public void onItemClick(View view , int position){
+                Intent intent=new Intent(SetActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
     @Override
@@ -168,6 +177,7 @@ public class SetActivity extends AppCompatActivity {
                             Uri.fromFile(tmpCameraFile)),
                     RESULT_IMAGE_CODE);
         }
+
 
     }
 
