@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Button home = (Button)findViewById(R.id.bottom_home);
+        Button set =(Button)findViewById(R.id.bottom_set);
         //动态获取通话记录权限
         int checkCallPhonePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALL_LOG);
         if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
@@ -81,7 +82,20 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         RecordAdapter adapter = new RecordAdapter(recordInfoList);
         recyclerView.setAdapter(adapter);
-        System.out.println("啊？");
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,SetActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

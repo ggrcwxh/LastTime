@@ -31,24 +31,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/home"
-                    />
-                <View
-                    android:layout_width="1dip"
-                    android:layout_height="match_parent"
-                    android:background="#dddddd"
-                    android:layout_gravity="center_horizontal"
-                    />
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/set"
-                    />
+
+                <include layout="@layout/abc_bottom_button"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.percent.PercentFrameLayout>

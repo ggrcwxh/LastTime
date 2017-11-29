@@ -45,7 +45,7 @@ public class InitRecordList {
         }
         //构造迭代器
         Iterator<AbstractInfo> it = infos.iterator();
-        if(it.hasNext()){
+        while(it.hasNext()){
             AbstractInfo info =it.next();
             //RTTI
             String s = info.getClass().getName();

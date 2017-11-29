@@ -61,6 +61,6 @@ public class CallInfo extends AbstractInfo {
 
     public String toString(){
         long day= (currentTimeMillis()-getDate())/86400000;
-        return String.format("上一次: 离call%s已经有%d天了",call,day);
+        return String.format("离上一次: 离call%s已经有%d天了",call,day);
     }
 }
