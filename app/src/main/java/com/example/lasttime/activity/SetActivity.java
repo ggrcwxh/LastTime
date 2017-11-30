@@ -75,11 +75,16 @@ public class SetActivity extends AppCompatActivity {
 
             }
         });
+        //list点击事件
         adapter.setOnItemClickListener(new SetAdapter.OnItemClickListener(){
             @Override
             public void onItemClick(View view , int position){
                 if(position==2){
                     Intent intent=new Intent(SetActivity.this,ConnectWayActivity.class);
+                    startActivity(intent);
+                }
+                if(position==3){
+                    Intent intent = new Intent(SetActivity.this,WebActivity.class);
                     startActivity(intent);
                 }
 
