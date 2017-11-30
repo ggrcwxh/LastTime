@@ -51,6 +51,8 @@
         <activity android:name=".activity.DeleteKinAndKithActivity" ></activity>
         <activity android:name=".activity.ConnectWayActivity"></activity>
         <activity android:name=".activity.WebActivity"></activity>
+        <activity android:name=".activity.SponsorActivity"></activity>
+        <activity android:name=".activity.SetKinAndKithActivity"></activity>
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"> </service>
     </application>
 

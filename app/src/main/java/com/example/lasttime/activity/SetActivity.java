@@ -79,12 +79,20 @@ public class SetActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new SetAdapter.OnItemClickListener(){
             @Override
             public void onItemClick(View view , int position){
+                if(position==0){
+                    Intent intent = new Intent(SetActivity.this,SetKinAndKithActivity.class);
+                    startActivity(intent);
+                }
                 if(position==2){
                     Intent intent=new Intent(SetActivity.this,ConnectWayActivity.class);
                     startActivity(intent);
                 }
                 if(position==3){
                     Intent intent = new Intent(SetActivity.this,WebActivity.class);
+                    startActivity(intent);
+                }
+                if(position==4){
+                    Intent intent =new Intent(SetActivity.this,SponsorActivity.class);
                     startActivity(intent);
                 }
 
