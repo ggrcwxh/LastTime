@@ -26,6 +26,7 @@
                 android:layout_height="50dp"
                 android:text="确定"/>
             <ImageView
+                android:id="@+id/set_kin_and_kith_linkman"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"

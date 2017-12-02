@@ -1,19 +1,28 @@
 package com.example.lasttime.activity;
 
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
-import com.example.lasttime.adapter.DeleteCallAdapter;
+
 import com.example.lasttime.biz.CallInfoBiz;
 import com.example.lasttime.biz.DatabaseBiz;
 import com.example.lasttime.domain.CallInfo;
@@ -60,6 +69,14 @@ public class SetKinAndKithActivity extends AppCompatActivity {
 
             }
         });
+        ImageView imageView = (ImageView)findViewById(R.id.set_kin_and_kith_linkman);
+        imageView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -70,5 +87,71 @@ public class SetKinAndKithActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    //内部类，用于适配RecyclerView
+    public class DeleteCallAdapter extends RecyclerView.Adapter<DeleteCallAdapter.ViewHolder>{
+        private List<CallInfo> list;
+        private LocalBroadcastManager localBroadcastManager;
+         class ViewHolder extends RecyclerView.ViewHolder{
+            ImageView imageView;
+            TextView textView;
+             public ViewHolder(View view){
+                super(view);
+                imageView=(ImageView)view.findViewById(R.id.delete_item_image);
+                textView=(TextView)view.findViewById(R.id.delete_item_text);
+            }
+        }
+        public DeleteCallAdapter(List<CallInfo> list){
+            this.list=list;
+        }
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.abc_delete_item,parent,false);
+            final ViewHolder holder = new ViewHolder(view);
+            holder.imageView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    localBroadcastManager=LocalBroadcastManager.getInstance(MyApplication.getContext());
+                    int position=holder.getAdapterPosition();
+                    final CallInfo callInfo =list.get(position);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(SetKinAndKithActivity.this);
+                    dialog.setTitle("提醒");
+                    dialog.setMessage("你确定要删除"+callInfo.getCall()+"这个联系人吗？");
+                    dialog.setPositiveButton("是的",new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog,int which){
+                            CallInfoBiz callInfoBiz = new CallInfoBiz(MainActivity.dbHelper);
+                            callInfoBiz.deleteKITH_AND_KIN(callInfo.getCall(),callInfo.getNum(),callInfo.getDate(),callInfo.getFrequency());
+                            Intent intent=new Intent(SetKinAndKithActivity.this,SetKinAndKithActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                    dialog.setNegativeButton("放弃",new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog,int which){
+
+                        }
+                    });
+                    dialog.show();
+
+                }
+            });
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            CallInfo callInfo = list.get(position);
+            holder.imageView.setImageResource(R.drawable.delete);
+            holder.textView.setText(callInfo.getCall()+":"+callInfo.getNum());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+    }
+
 
 }
