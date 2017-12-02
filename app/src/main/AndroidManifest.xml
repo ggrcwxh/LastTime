@@ -46,8 +46,8 @@
 
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" android:launchMode="singleTask" ></activity>
-        <activity android:name=".activity.SetActivity" android:launchMode="singleTask"></activity>
+        <activity android:name=".activity.MainActivity"  ></activity>
+        <activity android:name=".activity.SetActivity" ></activity>
         <activity android:name=".activity.ConnectWayActivity"></activity>
         <activity android:name=".activity.WebActivity"></activity>
         <activity android:name=".activity.SponsorActivity"></activity>

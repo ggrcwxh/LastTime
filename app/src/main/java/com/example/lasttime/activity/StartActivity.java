@@ -30,6 +30,7 @@ import java.io.File;
  */
 
 public class StartActivity extends AppCompatActivity {
+    final String data="StartActivity";
     private final static int SKIP_TIME=2200;
     private Handler handler1 = new Handler();
     private String[] PERMISSIONS_STORAGE = {
@@ -47,6 +48,7 @@ public class StartActivity extends AppCompatActivity {
         handler1.postDelayed(new Runnable() {  //使用handler的postDelayed实现延时跳转
             public void run() {
                 Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                intent.putExtra("activity",data);
                 startActivity(intent);
                 finish();
             }
