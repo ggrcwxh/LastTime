@@ -80,6 +80,13 @@ public class SetKinAndKithActivity extends AppCompatActivity {
 
     }
     @Override
+    protected void onRestart(){
+        super.onRestart();
+        Intent intent = new Intent(SetKinAndKithActivity.this,SetKinAndKithActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

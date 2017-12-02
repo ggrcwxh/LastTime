@@ -47,7 +47,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     //一些参数
-    public String data="MainActivity";
+
     private final int RESULT_CAPTURE_CODE = 200;
     private final int RESULT_IMAGE_CODE = 100;
     private final int OPEN_CAMERA = 222;
@@ -64,14 +64,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
         setContentView(R.layout.main_activity_layout);
-        Intent exintent =getIntent();
-        final String data = exintent.getStringExtra("activity");
-        if(data.equals("SetActivity")){
-            Intent intent=new Intent(MainActivity.this,MainActivity.class);
-            intent.putExtra("activity",data);
-            startActivity(intent);
-            finish();
-        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button home = (Button)findViewById(R.id.bottom_home);
@@ -101,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,SetActivity.class);
-                intent.putExtra("activity",data);
+
                 startActivity(intent);
             }
         });
@@ -200,6 +192,13 @@ public class MainActivity extends AppCompatActivity {
                     RESULT_IMAGE_CODE);
         }
 
+    }
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        Intent intent = new Intent(MainActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
