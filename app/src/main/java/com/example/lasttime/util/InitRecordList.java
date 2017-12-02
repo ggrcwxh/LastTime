@@ -50,7 +50,10 @@ public class InitRecordList {
         while(it.hasNext()){
             AbstractInfo info =it.next();
             //如果date是0的话不显示
-            if(info.getDate()==0)it.remove();
+            if(info.getDate()==0){
+                it.remove();
+                continue;
+            }
             //RTTI
             String s = info.getClass().getName();
             if(s.equals("com.example.lasttime.domain.CallInfo")){
