@@ -29,7 +29,7 @@ import java.util.concurrent.Callable;
  * 同时还要对得到的json信息进行处理以及数据库的存储
  */
 
-public class HttpToBaiDuMapService extends AppCompatActivity implements Callable<Boolean> {
+public class HttpToBaiDuMapService extends AppCompatActivity implements Callable<PhotoInfo> {
     float output1;
     float output2;
     long date;
@@ -42,7 +42,7 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Callable
         this.photoPath= photoPath;
     }
     @Override
-    public Boolean call(){
+    public PhotoInfo call(){
         String httpPath="http://api.map.baidu.com/cloudrgc/v1?location="+output1+","+output2+"&geotable_id=135675&coord_type=bd09ll&ak=E9ZYWuO733BgH6Epr8ZqjvG2Ai5L4l7n";
         URL url = null;
         Boolean flag=false;
@@ -61,7 +61,7 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Callable
                 reponse.append(line);
             }
             String s=reponse.toString();
-            flag=parseJSONWithJSONObject(s);
+            parseJSONWithJSONObject(s);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -69,59 +69,40 @@ public class HttpToBaiDuMapService extends AppCompatActivity implements Callable
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return flag;
+        return photoInfo;
 
     }
-    private Boolean parseJSONWithJSONObject(String s){
-        String formatted_address;
+    private PhotoInfo parseJSONWithJSONObject(String s){
+        //String formatted_address;
         String recommended_location_description;
-        Boolean flag = false;
-        String address;
+
+       // String address;
         try {
             JSONObject jsonObject = new JSONObject(s);
             //formatted_address = jsonObject.getString("formatted_address");
             recommended_location_description = jsonObject.getString("recommended_location_description");
-            JSONObject jsonObject1 = jsonObject.getJSONObject("address_component");
-            if((address=jsonObject1.getString("street"))==null){
-                address= jsonObject.getString("district");
-            }
+            //JSONObject jsonObject1 = jsonObject.getJSONObject("address_component");
+            //if((address=jsonObject1.getString("street"))==null){
+                //address= jsonObject.getString("district");
+            //}
+            //用正则表达式处理推荐的数据
             String[] temp = recommended_location_description.split("东|南|西|北|中|内");
             StringBuffer data=new StringBuffer();
             for(int i=0;i<temp.length-1;i++){
                 data.append(temp[i]);
-
             }
-            String data1=data.toString();
-            flag=updateToDatabase(data1);
+            String place=data.toString();
+            photoInfo = new PhotoInfo(place,photoPath,date,0);
+            return photoInfo;
 
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return flag;
+        return null;
 
 
     }
-    private Boolean updateToDatabase(String s){
-        if(s.equals("")){
 
-            return false;
-        }
-        photoInfo = new PhotoInfo(s,photoPath,date,0);
-        DatabaseBiz databaseBiz =new DatabaseBiz("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
-        List<PhotoInfo> list= databaseBiz.selectAllPhoto();
-        boolean flag = false;
-        for(PhotoInfo attribute: list){
-            if(attribute.getPlace().equals(photoInfo.getPlace())){
-                databaseBiz.update();
-                flag=true;
-            }
-        }
-        if(flag==false){
-            databaseBiz.insert();
-        }
-        return true;
-
-    }
 }

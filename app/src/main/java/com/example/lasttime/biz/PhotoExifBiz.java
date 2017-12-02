@@ -2,6 +2,7 @@ package com.example.lasttime.biz;
 
 import android.media.ExifInterface;
 
+import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.PhotoInfo;
 import com.example.lasttime.thread.HttpToBaiDuMapService;
 
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,45 +28,57 @@ public class PhotoExifBiz {
         private PhotoInfo photoInfo = new PhotoInfo();
         private float output1 = 0;
         private float output2 = 0;
+        private long dateLong;
         public PhotoExifBiz(String path)
         {
             this.path=path;
         }
+        //读取经纬度
         public Boolean getDateLatitudeLongitude()
         {
 
             try {
-                ExifInterface exifInterface = new ExifInterface(path);
-                String date=exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
-                String latValue = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
-                String lngValue = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
-                String latRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
-                String lngRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
-                //把String类型变换为Date类型
-                String formatType="yyyy:MM:dd HH:mm:ss";
-                SimpleDateFormat formatter = new SimpleDateFormat(formatType);
-                Date ndate = null;
+                    ExifInterface exifInterface = new ExifInterface(path);
+                    String dateString=exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+                    String latValue = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
+                    String lngValue = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
+                    String latRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
+                    String lngRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
+                    if(latValue==null||lngValue==null){
+                        return false;
+                    }
+
                 try {
-                    ndate = formatter.parse(date);
+                        //把String类型变换为Date类型
+                        String formatType="yyyy:MM:dd HH:mm:ss";
+                        SimpleDateFormat formatter = new SimpleDateFormat(formatType);
+                        Date dateDate = null;
+                        dateDate = formatter.parse(dateString);
+                        //把Date类型变换为Long类型
+                        if(dateDate==null){
+                            dateLong=0;
+                        }
+                        else dateLong=dateDate.getTime();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                long nndate;
-                if(ndate==null){
-                    nndate=0;
-                }
-                else nndate=ndate.getTime();
-
-
                 if (latValue != null && latRef != null && lngValue != null && lngRef != null) {
                     output1 = convertRationalLatLonToFloat(latValue, latRef);
                     output2 = convertRationalLatLonToFloat(lngValue, lngRef);
                 }
                 //将经纬度发送到另一个http线程中
                 ExecutorService exec= Executors.newCachedThreadPool();
-                Future<Boolean> results = exec.submit(new HttpToBaiDuMapService(output1,output2,nndate,path));
+                Future<PhotoInfo> results = exec.submit(new HttpToBaiDuMapService(output1,output2,dateLong,path));
                 try {
-                    return results.get();
+                    photoInfo=results.get();
+                    if(photoInfo==null){
+                        return false;
+                    }
+                    else{
+                        return updateToDatabase();
+                    }
+
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
@@ -95,6 +109,22 @@ public class PhotoExifBiz {
                 return (float) -result;
             }
             return (float) result;
+        }
+    private Boolean updateToDatabase(){
+        DatabaseBiz databaseBiz =new DatabaseBiz("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
+        List<PhotoInfo> list= databaseBiz.selectAllPhoto();
+        boolean flag = false;
+        for(PhotoInfo attribute: list){
+            if(attribute.getPlace().equals(photoInfo.getPlace())&&attribute.getDate()<photoInfo.getDate()){
+                databaseBiz.update();
+                flag=true;
+            }
+        }
+        if(flag==false){
+            databaseBiz.insert();
+        }
+        return true;
+
     }
 
 
