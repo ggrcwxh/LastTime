@@ -109,5 +109,11 @@ public class CallInfoBiz {
             databaseBiz.insert();
         }
     }
+    public void deleteKITH_AND_KIN(String call,String num,long date,int frequency){
+        CallInfo callInfo =buildCallInfo(call,num,date,frequency);
+        DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",callInfo,null,null,dbHelper);
+        databaseBiz.delete();
+
+    }
 
 }

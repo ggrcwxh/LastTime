@@ -169,10 +169,11 @@ public class DatabaseBiz {
         return wordInfos;
     }
 
-    public synchronized void delete(String attribute){
+    public synchronized void delete(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(table.equals("KITH_AND_KIN")){
-            db.delete(table,"call=?",new String[] {attribute});
+            db.delete(table,"call=?",new String[] {callInfo.getCall()});
+
         }
     }
 }
