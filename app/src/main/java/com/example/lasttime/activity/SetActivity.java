@@ -69,6 +69,7 @@ public class SetActivity extends AppCompatActivity {
                 Intent intent=new Intent(SetActivity.this,MainActivity.class);
                 intent.putExtra("activity",data);
                 startActivity(intent);
+                finish();
             }
         });
         set.setOnClickListener(new View.OnClickListener() {
