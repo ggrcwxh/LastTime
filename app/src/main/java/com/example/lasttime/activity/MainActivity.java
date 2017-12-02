@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //执行读取通话记录，更新数据库
         CallInfoBiz callInfoBiz = new CallInfoBiz(dbHelper);
-        callInfoBiz.getCallInfos();
+        callInfoBiz.getCallInfosInPhone();
         callInfoBiz.updateKITH_AND_KIN();
         List<RecordInfo> recordInfoList= InitRecordList.initRecordList();
         recyclerView =(RecyclerView)findViewById(R.id.main_recyclerview);

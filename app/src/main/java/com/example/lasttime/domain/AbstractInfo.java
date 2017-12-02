@@ -12,6 +12,7 @@ public  abstract  class AbstractInfo {
     public AbstractInfo(){
 
     }
+    public abstract long getDate();
     public abstract int getFrequency() ;
     public abstract void setFrequency(int frequency) ;
     public abstract String toString();

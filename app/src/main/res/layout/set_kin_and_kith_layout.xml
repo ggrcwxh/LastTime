@@ -8,10 +8,12 @@
             android:layout_height="wrap_content">
         </android.support.v7.widget.Toolbar>
         <EditText
+            android:id="@+id/set_kin_and_kith_edit1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="亲友号码"/>
         <EditText
+            android:id="@+id/set_kin_and_kith_edit2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="亲友称呼"/>
@@ -19,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
+                android:id="@+id/set_kin_and_kith_button"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="确定"/>

@@ -47,6 +47,8 @@ public class InitRecordList {
         Iterator<AbstractInfo> it = infos.iterator();
         while(it.hasNext()){
             AbstractInfo info =it.next();
+            //如果date是0的话不显示
+            if(info.getDate()==0)it.remove();
             //RTTI
             String s = info.getClass().getName();
             if(s.equals("com.example.lasttime.domain.CallInfo")){

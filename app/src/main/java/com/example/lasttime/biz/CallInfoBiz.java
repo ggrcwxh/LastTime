@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CallLog;
 import android.support.v4.app.ActivityCompat;
+import android.telecom.Call;
 
 import com.example.lasttime.LastTimeDatabaseHelper;
 import com.example.lasttime.MyApplication;
@@ -26,8 +27,14 @@ public class CallInfoBiz {
     public CallInfoBiz(LastTimeDatabaseHelper dbHelper){
         this.dbHelper=dbHelper;
     }
-    public void getCallInfos() {
-
+    public CallInfo buildCallInfo(String call,String num,long date,int frequency){
+         return new CallInfo(call,num,date,frequency);
+    }
+    public List<CallInfo> getCallinfos() {
+        getCallInfosInPhone();
+        return callinfos;
+    }
+    public void getCallInfosInPhone() {
         ContentResolver resolver = MyApplication.getContext().getContentResolver();
         Uri uri = CallLog.Calls.CONTENT_URI;
         String[] projection = new String[]{
@@ -78,7 +85,7 @@ public class CallInfoBiz {
     public void updateKITH_AND_KIN(){
         DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",dbHelper);
         List<CallInfo> callinfos2 = databaseBiz.selectAllPhone();
-        if(callinfos2==null)return;
+        if(callinfos2.size()==0)return;
         for(CallInfo attribute: this.callinfos){
             for(CallInfo attribute2: callinfos2){
                 if(attribute.getNum().equals(attribute2.getNum())&&attribute.getDate()>attribute2.getDate()){
@@ -88,7 +95,21 @@ public class CallInfoBiz {
             }
         }
     }
-    public List<CallInfo> getCallinfos() {
-        return callinfos;
+    public void insertKITH_AND_KIN(String call,String num,long date,int frequency){
+        getCallInfosInPhone();
+        CallInfo callInfo = buildCallInfo(call,num,date,frequency);
+        DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",callInfo,null,null,dbHelper);
+        List<CallInfo> callinfos2 =databaseBiz.selectAllPhone();
+        if(callinfos2.size()==0){
+            databaseBiz.insert();
+        }
+        else{
+            for(CallInfo attribute:callinfos2){
+                attribute.getCall().equals(callInfo.getCall());
+                return;
+            }
+            databaseBiz.insert();
+        }
     }
+
 }
