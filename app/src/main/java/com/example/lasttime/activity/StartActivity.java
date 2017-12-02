@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,7 +31,8 @@ import java.io.File;
  */
 
 public class StartActivity extends AppCompatActivity {
-
+    Boolean flag1=false;
+    Boolean flag2=false;
     private final static int SKIP_TIME=2200;
     private Handler handler1 = new Handler();
     private String[] PERMISSIONS_STORAGE = {
@@ -47,12 +49,25 @@ public class StartActivity extends AppCompatActivity {
         }
         handler1.postDelayed(new Runnable() {  //使用handler的postDelayed实现延时跳转
             public void run() {
-                Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                Intent intent = new Intent(StartActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         }, SKIP_TIME);//3秒后跳转至应用主界面MainActivity
+        //动态获取存储器权限
+        int permission = ActivityCompat.checkSelfPermission(StartActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    StartActivity.this,
+                    PERMISSIONS_STORAGE,
+                    1
+            );
 
+        }
+        int checkCallPhonePermission = ContextCompat.checkSelfPermission(StartActivity.this, Manifest.permission.READ_CALL_LOG);
+        if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(StartActivity.this, new String[]{Manifest.permission.READ_CALL_LOG}, 2);
+        }
     }
 
 }

@@ -110,20 +110,20 @@ public class PhotoExifBiz {
             }
             return (float) result;
         }
-    private Boolean updateToDatabase(){
-        DatabaseBiz databaseBiz =new DatabaseBiz("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
-        List<PhotoInfo> list= databaseBiz.selectAllPhoto();
-        boolean flag = false;
-        for(PhotoInfo attribute: list){
+        private Boolean updateToDatabase(){
+            DatabaseBiz databaseBiz =new DatabaseBiz("PHOTO",null,photoInfo,null, MainActivity.dbHelper);
+            List<PhotoInfo> list= databaseBiz.selectAllPhoto();
+            boolean flag = false;
+            for(PhotoInfo attribute: list){
             if(attribute.getPlace().equals(photoInfo.getPlace())&&attribute.getDate()<photoInfo.getDate()){
                 databaseBiz.update();
                 flag=true;
             }
         }
-        if(flag==false){
-            databaseBiz.insert();
-        }
-        return true;
+            if(flag==false){
+                databaseBiz.insert();
+            }
+            return true;
 
     }
 

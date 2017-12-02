@@ -193,9 +193,7 @@ public class SetActivity extends AppCompatActivity {
                     RESULT_IMAGE_CODE);
         }
 
-
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -227,8 +225,8 @@ public class SetActivity extends AppCompatActivity {
                 }
 
             }
+            //将照片地址送入读取exif相关类交给后台处理
             else{
-                //将照片地址送入读取exif相关类交给后台处理
                 PhotoExifBiz photoExifBiz = new PhotoExifBiz(mImagePath);
                 Boolean flag = photoExifBiz.getDateLatitudeLongitude();
                 if (flag) {
@@ -241,8 +239,8 @@ public class SetActivity extends AppCompatActivity {
                     dialog.setPositiveButton("确定", null);
                     dialog.show();
                 }
-            }
 
+            }
 
         }
         //如果是照片记录
@@ -267,21 +265,18 @@ public class SetActivity extends AppCompatActivity {
                     cursor.close();
                 }
             }
-            else{
-                PhotoExifBiz photoExifBiz = new PhotoExifBiz(mImagePath);
-                Boolean flag = photoExifBiz.getDateLatitudeLongitude();
-                if (flag) {
-                    Toast.makeText(SetActivity.this, "已经帮您将相关信息存入数据库,可以在记录中查看啦", Toast.LENGTH_SHORT).show();
-                } else {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(SetActivity.this);
-                    dialog.setTitle("抱歉");
-                    dialog.setMessage("无法读到你的图片的地址信息，如果是使用拍照功能的话请打开gps");
-                    dialog.setCancelable(false);
-                    dialog.setPositiveButton("确定", null);
-                    dialog.show();
-                }
+            PhotoExifBiz photoExifBiz = new PhotoExifBiz(mImagePath);
+            Boolean flag = photoExifBiz.getDateLatitudeLongitude();
+            if (flag) {
+                Toast.makeText(SetActivity.this, "已经帮您将相关信息存入数据库,可以在记录中查看啦", Toast.LENGTH_SHORT).show();
+            } else {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(SetActivity.this);
+                dialog.setTitle("抱歉");
+                dialog.setMessage("无法读到你的图片的地址信息，如果是使用拍照功能的话请打开gps");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定", null);
+                dialog.show();
             }
-
         }
     }
 }
