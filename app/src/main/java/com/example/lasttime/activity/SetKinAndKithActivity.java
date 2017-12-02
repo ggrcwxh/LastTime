@@ -38,7 +38,7 @@ public class SetKinAndKithActivity extends AppCompatActivity {
             actionBar.setDisplayShowTitleEnabled(false);
         }
         //从数据库中读取所有联系人的信息
-        DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
+        final DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
         List<CallInfo> list = databaseBiz.selectAllPhone();
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.set_kin_and_kith_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -54,6 +54,9 @@ public class SetKinAndKithActivity extends AppCompatActivity {
                 String num = edit2.getText().toString();
                 CallInfoBiz callInfoBiz = new CallInfoBiz(MainActivity.dbHelper);
                 callInfoBiz.insertKITH_AND_KIN(call,num,0,0);
+                List<CallInfo> list2=databaseBiz.selectAllPhone();
+                DeleteCallAdapter adapter2 = new DeleteCallAdapter(list2);
+                //写到此，查handle相关用法
             }
         });
     }
