@@ -73,7 +73,8 @@ public class SetKinAndKithActivity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
+                Intent intent = new Intent(SetKinAndKithActivity.this,LinkmanActivity.class);
+                startActivity(intent);
             }
         });
 
