@@ -22,6 +22,8 @@ public class InitRecordList {
     private static List<RecordInfo> list = new ArrayList<>();
     private static List<AbstractInfo> infos =new ArrayList<>();
     public static List<RecordInfo> initRecordList(){
+        list.clear();
+        infos.clear();
         DatabaseBiz databaseBiz  = new DatabaseBiz(MainActivity.dbHelper);
         List<CallInfo> callInfos = databaseBiz.selectAllPhone();
         List<PhotoInfo> photoInfos = databaseBiz.selectAllPhoto();

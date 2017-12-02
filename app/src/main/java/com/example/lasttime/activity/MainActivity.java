@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity_layout);
         Intent exintent =getIntent();
         final String data = exintent.getStringExtra("activity");
-        if(data.equals("MainActivity")){
+        if(data.equals("SetActivity")){
             Intent intent=new Intent(MainActivity.this,MainActivity.class);
             intent.putExtra("activity",data);
             startActivity(intent);

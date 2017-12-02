@@ -42,6 +42,7 @@ import java.util.Date;
  */
 
 public class SetActivity extends AppCompatActivity {
+    final String data="SetActiviy";
     private final int RESULT_CAPTURE_CODE = 200;
     private final int RESULT_IMAGE_CODE = 100;
     private final int OPEN_CAMERA = 222;
@@ -66,6 +67,7 @@ public class SetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(SetActivity.this,MainActivity.class);
+                intent.putExtra("activity",data);
                 startActivity(intent);
             }
         });
