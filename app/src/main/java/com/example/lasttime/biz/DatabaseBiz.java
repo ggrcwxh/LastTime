@@ -123,7 +123,7 @@ public class DatabaseBiz {
         return 0;
     }
     //专门用来查询KITH_AND_KIN表中的所有行
-    public synchronized List<CallInfo> selectAllPhone() {
+    public List<CallInfo> selectAllPhone() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         List<CallInfo> callInfos = new ArrayList<CallInfo>();
         Cursor cursor = db.query("KITH_AND_KIN", null, null, null, null, null, null);

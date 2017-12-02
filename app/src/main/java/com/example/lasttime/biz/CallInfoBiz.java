@@ -96,7 +96,6 @@ public class CallInfoBiz {
         }
     }
     public void insertKITH_AND_KIN(String call,String num,long date,int frequency){
-        getCallInfosInPhone();
         CallInfo callInfo = buildCallInfo(call,num,date,frequency);
         DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",callInfo,null,null,dbHelper);
         List<CallInfo> callinfos2 =databaseBiz.selectAllPhone();
@@ -105,8 +104,7 @@ public class CallInfoBiz {
         }
         else{
             for(CallInfo attribute:callinfos2){
-                attribute.getCall().equals(callInfo.getCall());
-                return;
+                if(attribute.getCall().equals(callInfo.getCall())) return;
             }
             databaseBiz.insert();
         }

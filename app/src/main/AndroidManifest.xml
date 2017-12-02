@@ -47,8 +47,6 @@
         </activity>
         <activity android:name=".activity.MainActivity" android:launchMode="singleTask" ></activity>
         <activity android:name=".activity.SetActivity" android:launchMode="singleTask"></activity>
-        <activity android:name=".activity.UserLastTimeActivity"  ></activity>
-        <activity android:name=".activity.DeleteKinAndKithActivity" ></activity>
         <activity android:name=".activity.ConnectWayActivity"></activity>
         <activity android:name=".activity.WebActivity"></activity>
         <activity android:name=".activity.SponsorActivity"></activity>

@@ -3,6 +3,7 @@ package com.example.lasttime.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,25 +39,27 @@ public class SetKinAndKithActivity extends AppCompatActivity {
             actionBar.setDisplayShowTitleEnabled(false);
         }
         //从数据库中读取所有联系人的信息
-        final DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
+        DatabaseBiz databaseBiz = new DatabaseBiz("KITH_AND_KIN",null,null,null,MainActivity.dbHelper);
         List<CallInfo> list = databaseBiz.selectAllPhone();
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.set_kin_and_kith_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
         DeleteCallAdapter adapter = new DeleteCallAdapter(list);
         recyclerView.setAdapter(adapter);
-        final EditText edit1 = (EditText)findViewById(R.id.set_kin_and_kith_edit1);
-        final EditText edit2 = (EditText)findViewById(R.id.set_kin_and_kith_edit2);
         Button button = (Button)findViewById(R.id.set_kin_and_kith_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText edit1 = (EditText)findViewById(R.id.set_kin_and_kith_edit1);
+                EditText edit2 = (EditText)findViewById(R.id.set_kin_and_kith_edit2);
                 String call = edit1.getText().toString();
                 String num = edit2.getText().toString();
                 CallInfoBiz callInfoBiz = new CallInfoBiz(MainActivity.dbHelper);
                 callInfoBiz.insertKITH_AND_KIN(call,num,0,0);
-                List<CallInfo> list2=databaseBiz.selectAllPhone();
-                DeleteCallAdapter adapter2 = new DeleteCallAdapter(list2);
-                //写到此，查handle相关用法
+                Intent intent=new Intent(SetKinAndKithActivity.this,SetKinAndKithActivity.class);
+                startActivity(intent);
+                finish();
+
             }
         });
     }

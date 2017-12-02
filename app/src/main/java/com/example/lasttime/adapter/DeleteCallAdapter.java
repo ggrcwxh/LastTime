@@ -27,8 +27,8 @@ public class DeleteCallAdapter extends RecyclerView.Adapter<DeleteCallAdapter.Vi
 
         public ViewHolder(View view){
             super(view);
-            imageView=(ImageView)view.findViewById(R.id.record_item_image);
-            textView=(TextView)view.findViewById(R.id.record_item_text);
+            imageView=(ImageView)view.findViewById(R.id.delete_item_image);
+            textView=(TextView)view.findViewById(R.id.delete_item_text);
         }
     }
     public DeleteCallAdapter(List<CallInfo> list){
