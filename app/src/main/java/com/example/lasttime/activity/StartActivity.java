@@ -37,7 +37,10 @@ public class StartActivity extends AppCompatActivity {
     private Handler handler1 = new Handler();
     private String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_CALL_LOG,
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_CONTACTS
     };
     @Override
     protected void onCreate(Bundle savedInstaceState) {
@@ -55,7 +58,7 @@ public class StartActivity extends AppCompatActivity {
             }
         }, SKIP_TIME);//3秒后跳转至应用主界面MainActivity
         //动态获取存储器权限
-        int permission = ActivityCompat.checkSelfPermission(StartActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permission = ActivityCompat.checkSelfPermission(MyApplication.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                     StartActivity.this,
@@ -64,10 +67,7 @@ public class StartActivity extends AppCompatActivity {
             );
 
         }
-        int checkCallPhonePermission = ContextCompat.checkSelfPermission(StartActivity.this, Manifest.permission.READ_CALL_LOG);
-        if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(StartActivity.this, new String[]{Manifest.permission.READ_CALL_LOG}, 2);
-        }
+
     }
 
 }
