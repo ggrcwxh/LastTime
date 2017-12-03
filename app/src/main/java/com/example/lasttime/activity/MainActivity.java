@@ -74,10 +74,13 @@ public class MainActivity extends AppCompatActivity {
         if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CALL_LOG}, GET_USER_CALL_INFO);
         }
-        //执行读取通话记录，更新数据库
-        CallInfoBiz callInfoBiz = new CallInfoBiz(dbHelper);
-        callInfoBiz.getCallInfosInPhone();
-        callInfoBiz.updateKITH_AND_KIN();
+        else{
+            //执行读取通话记录，更新数据库
+            CallInfoBiz callInfoBiz = new CallInfoBiz(dbHelper);
+            callInfoBiz.getCallInfosInPhone();
+            callInfoBiz.updateKITH_AND_KIN();
+
+        }
         List<RecordInfo> recordInfoList= InitRecordList.initRecordList();
         recyclerView =(RecyclerView)findViewById(R.id.main_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -147,13 +150,6 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this,
                     new String[]{Manifest.permission.CAMERA},
                     OPEN_CAMERA);
-            //打开照相机
-            startActivityForResult(new Intent(
-                            MediaStore.ACTION_IMAGE_CAPTURE).putExtra(
-                    MediaStore.EXTRA_OUTPUT,
-                    Uri.fromFile(tmpCameraFile)),
-                    RESULT_CAPTURE_CODE);
-
         }
         else{
             //打开照相机
@@ -183,12 +179,7 @@ public class MainActivity extends AppCompatActivity {
                     PERMISSIONS_STORAGE,
                     WRITE_USER_EXTERNAL_STORAGE
             );
-            startActivityForResult(
-                    new Intent(Intent.ACTION_PICK).setType(
-                            "image/*").putExtra(
-                            MediaStore.EXTRA_OUTPUT,
-                            Uri.fromFile(tmpCameraFile)),
-                    RESULT_IMAGE_CODE);
+
         }
         //打开相册
         else{
@@ -220,18 +211,6 @@ public class MainActivity extends AppCompatActivity {
                         PERMISSIONS_STORAGE,
                         WRITE_USER_EXTERNAL_STORAGE
                 );
-                PhotoExifBiz photoExifBiz = new PhotoExifBiz(mImagePath);
-                Boolean flag = photoExifBiz.getDateLatitudeLongitude();
-                if (flag) {
-                    Toast.makeText(MainActivity.this, "已经帮您将相关信息存入数据库,可以在记录中查看啦", Toast.LENGTH_SHORT).show();
-                } else {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                    dialog.setTitle("抱歉");
-                    dialog.setMessage("无法读到你的图片的地址信息，如果是使用拍照功能的话请打开gps");
-                    dialog.setCancelable(false);
-                    dialog.setPositiveButton("确定", null);
-                    dialog.show();
-                }
 
             }
             //将照片地址送入读取exif相关类交给后台处理

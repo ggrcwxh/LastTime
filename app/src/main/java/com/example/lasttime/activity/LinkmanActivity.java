@@ -57,7 +57,7 @@ public class LinkmanActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_CONTACTS},1);
-            readContacts();
+
         }
         else{
             readContacts();

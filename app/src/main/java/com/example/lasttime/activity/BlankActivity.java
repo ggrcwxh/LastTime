@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by 67014 on 2017/12/3.
+ * Created by ggrcwxh on 2017/12/3.
+ * 用来申请权限
  */
 
 public class BlankActivity extends AppCompatActivity {

@@ -31,17 +31,8 @@ import java.io.File;
  */
 
 public class StartActivity extends AppCompatActivity {
-    Boolean flag1=false;
-    Boolean flag2=false;
     private final static int SKIP_TIME=2200;
     private Handler handler1 = new Handler();
-    private String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_CALL_LOG,
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_CONTACTS
-    };
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
@@ -57,16 +48,6 @@ public class StartActivity extends AppCompatActivity {
                 finish();
             }
         }, SKIP_TIME);//3秒后跳转至应用主界面MainActivity
-        //动态获取存储器权限
-        int permission = ActivityCompat.checkSelfPermission(MyApplication.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    StartActivity.this,
-                    PERMISSIONS_STORAGE,
-                    1
-            );
-
-        }
 
     }
 
