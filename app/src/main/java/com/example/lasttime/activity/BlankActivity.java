@@ -1,16 +1,21 @@
 package com.example.lasttime.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
+import com.example.lasttime.biz.CallInfoBiz;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +33,7 @@ public class BlankActivity extends AppCompatActivity {
             Manifest.permission.CAMERA,
             Manifest.permission.READ_CONTACTS
     };
+
     private List<String> mPermissionList = new ArrayList<>();
     boolean mShowRequestPermission = true;//用户是否禁止权限
     @Override
@@ -67,7 +73,7 @@ public class BlankActivity extends AppCompatActivity {
                     if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                         //判断是否勾选禁止后不再询问
                         boolean showRequestPermission = ActivityCompat.shouldShowRequestPermissionRationale(BlankActivity.this, permissions[i]);
-                        if (showRequestPermission) {//
+                        if (showRequestPermission) {
                             Intent intent = new Intent(BlankActivity.this,BlankActivity.class);//重新申请权限
                             startActivity(intent);
                             finish();
@@ -77,12 +83,27 @@ public class BlankActivity extends AppCompatActivity {
                         }
                     }
                 }
-                Intent intent = new Intent(BlankActivity.this,StartActivity.class);
-                startActivity(intent);
-                finish();
+                if(mShowRequestPermission){
+                    Intent intent = new Intent(BlankActivity.this,StartActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }else{
+                    AlertDialog.Builder dialog= new AlertDialog.Builder(BlankActivity.this);
+                    dialog.setTitle("抱歉");
+                    dialog.setMessage("没有权限程序无法运行,请在手机设置中打开权限");
+                    dialog.setPositiveButton("确定",new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog,int which){
+                            finish();
+                        }
+                    });
+                    dialog.show();
+                }
                 break;
             default:
                 break;
         }
+
     }
 }
