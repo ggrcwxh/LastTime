@@ -3,9 +3,11 @@ package com.example.lasttime.activity;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -33,13 +35,23 @@ public class BlankActivity extends AppCompatActivity {
             Manifest.permission.CAMERA,
             Manifest.permission.READ_CONTACTS
     };
-
+    private SharedPreferences pre;
     private List<String> mPermissionList = new ArrayList<>();
     boolean mShowRequestPermission = true;//用户是否禁止权限
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
         setContentView(R.layout.blank_layout);
+        pre= PreferenceManager.getDefaultSharedPreferences(this);
+        boolean alreadyCreate = pre.getBoolean("data_remember",false);
+        if(!alreadyCreate){
+            SharedPreferences.Editor editor = pre.edit();
+            editor.putBoolean("data_remember",true);
+            editor.putFloat("call", (float)0.4);
+            editor.putFloat("photo",(float)0.35);
+            editor.putFloat("word", (float)0.25);
+            editor.apply();
+        }
         /**
          * 判断哪些权限未授予
          */

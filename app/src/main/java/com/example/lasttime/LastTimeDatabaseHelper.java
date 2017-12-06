@@ -32,10 +32,9 @@ public class LastTimeDatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_COMMEMORATION="create table COMMEMORATION ("
             +"data text primary key,"
             +"date integer,"
-            +"call integer,"
-            +"photo integer,"
-            +"word integer,"
-            +"sum integer"
+            +"call real"
+            +"photo real"
+            +"word real"
             +")";
     private static final String CREATE_POINT_IN_TIME_OF_COMMEMORATION="create table TIME ("
             +"time integer primary key,"

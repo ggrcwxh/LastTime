@@ -2,6 +2,7 @@ package com.example.lasttime.activity;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Button home = (Button)findViewById(R.id.bottom_home);
         Button set =(Button)findViewById(R.id.bottom_set);
+        FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.fab);
         //动态获取通话记录权限
         int checkCallPhonePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALL_LOG);
         if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
@@ -99,6 +102,27 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent=new Intent(MainActivity.this,SetActivity.class);
 
                 startActivity(intent);
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("测试");
+                dialog.setMessage("测试，无信息");
+                dialog.setPositiveButton("这是我想要的",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog,int which){
+
+                    }
+                });
+                dialog.setNegativeButton("这不是我想要的",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog,int which){
+
+                    }
+                });
+                dialog.show();
             }
         });
 
