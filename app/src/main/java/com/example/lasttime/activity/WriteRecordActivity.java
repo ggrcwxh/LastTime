@@ -41,6 +41,8 @@ public class WriteRecordActivity extends AppCompatActivity {
                 String s = editText.getText().toString();
                 WordInfoBiz wordInfoBiz = new WordInfoBiz(year,month,day,s);
                 wordInfoBiz.insertToDatabase();
+                Intent intent =new Intent(WriteRecordActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
