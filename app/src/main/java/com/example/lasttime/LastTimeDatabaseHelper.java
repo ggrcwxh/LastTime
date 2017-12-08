@@ -36,22 +36,6 @@ public class LastTimeDatabaseHelper extends SQLiteOpenHelper {
             +"photo real"
             +"word real"
             +")";
-    private static final String CREATE_POINT_IN_TIME_OF_COMMEMORATION="create table TIME ("
-            +"time integer primary key,"
-            +"frequency integer,"
-            +")";
-    private static final String CREATE_RIGHT_COMMEMORATION_FREQUENCY="create table RIGHT ("
-            +"phone integer,"
-            +"address integer,"
-            +"app integer,"
-            +"behavior integer,"
-            +")";
-    private static final String CREATE_RECORD_NUMS="create table RECORD ("
-            +"kith integer,"
-            +"photo integer,"
-            +"word integer,"
-            +"commemoration integer,"
-            +")";
     public LastTimeDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context,name,factory,version);
 
@@ -65,9 +49,7 @@ public class LastTimeDatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_PHOTO_TABLE);//这个表用于储存拍照记录后的信息
         sqLiteDatabase.execSQL(CREATE_WORD);//这个表用于存储手动输入记录后的信息
         sqLiteDatabase.execSQL(CREATE_COMMEMORATION);//配合朴树贝叶斯分类器的项
-  //      sqLiteDatabase.execSQL(CREATE_POINT_IN_TIME_OF_COMMEMORATION);
-        //sqLiteDatabase.execSQL(CREATE_RIGHT_COMMEMORATION_FREQUENCY);
-        //sqLiteDatabase.execSQL(CREATE_RECORD_NUMS);
+
 
     }
 

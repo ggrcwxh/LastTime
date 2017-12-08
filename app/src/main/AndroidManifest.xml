@@ -54,6 +54,7 @@
         <activity android:name=".activity.SponsorActivity"></activity>
         <activity android:name=".activity.SetKinAndKithActivity"></activity>
         <activity android:name=".activity.LinkmanActivity"></activity>
+        <activity android:name=".activity.WriteRecordActivity"></activity>
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"> </service>
     </application>
 

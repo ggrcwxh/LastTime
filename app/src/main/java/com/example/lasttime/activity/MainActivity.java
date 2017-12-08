@@ -42,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by ggrcwxh on 2017/10/27.
@@ -127,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    //上一次上床github失败，重传
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.add:
                 break;
             case R.id.write:
-                //
+                writeRecord();
                 break;
             case R.id.camera:
                 useCameraRecord();
@@ -156,6 +156,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
+    }
+    private void writeRecord(){
+        Intent intent = new Intent(MainActivity.this,WriteRecordActivity.class);
+        startActivity(intent);
+
     }
     //使用相机记录
     private final void useCameraRecord() {
