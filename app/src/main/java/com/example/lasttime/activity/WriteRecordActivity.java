@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.lasttime.R;
+import com.example.lasttime.biz.WordInfoBiz;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -29,10 +30,26 @@ public class WriteRecordActivity extends AppCompatActivity {
         setContentView(R.layout.abc_input_record);
         final TextView textView = (TextView)findViewById(R.id.input_record_text);
         textView.setText(year+":"+month+":"+day);
+        getDate();
         Button confirm = (Button)findViewById(R.id.input_record_confirm);
         Button back=(Button)findViewById(R.id.input_record_back);
         Button set = (Button)findViewById(R.id.input_record_set_time);
-        EditText editText=(EditText)findViewById(R.id.input_record_edit);
+        final EditText editText=(EditText)findViewById(R.id.input_record_edit);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s = editText.getText().toString();
+                WordInfoBiz wordInfoBiz = new WordInfoBiz(year,month,day,s);
+                wordInfoBiz.insertToDatabase();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

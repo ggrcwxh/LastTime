@@ -60,9 +60,9 @@ public class DatabaseBiz {
         }
         if(table.equals("WORD")){
             ContentValues values = new ContentValues();
-            values.put("classification",wordInfo.getClassification());
+            values.put("classification",wordInfo.getWord());
             values.put("date",wordInfo.getDate());
-            values.put("frequency",wordInfo.getFrequency());
+            values.put("frequency",wordInfo.getFrequency()+1);
             db.insert(table,null,values);
         }
     }
@@ -83,10 +83,10 @@ public class DatabaseBiz {
         }
         if(table.equals("WORD")){
             ContentValues values = new ContentValues();
-            values.put("classification",wordInfo.getClassification());
+            values.put("classification",wordInfo.getWord());
             values.put("date",wordInfo.getDate());
             values.put("frequency",selectFrequency()+1);
-            db.update(table,values,"classification=?",new String[]{wordInfo.getClassification()});
+            db.update(table,values,"classification=?",new String[]{wordInfo.getWord()});
         }
     }
     //专门用于查询frequency
@@ -114,7 +114,7 @@ public class DatabaseBiz {
         if(table.equals("WORD")){
             String[] temp={"frequency"};
             String temp1 ="classification=?";
-            String[] temp2={wordInfo.getClassification()};
+            String[] temp2={wordInfo.getWord()};
             Cursor cursor = db.query(table,temp,temp1,temp2,null,null,null);
             if(cursor!=null&&cursor.moveToFirst()){
                 return cursor.getLong(0);

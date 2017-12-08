@@ -67,7 +67,7 @@ public class RecommendBiz {
                     recommend=String.format("您距离去%s已经有%d天了，不如？",photoInfo.getPlace(),(currentTimeMillis()-photoInfo.getDate())/86400000);
                     break;
                 case"word":
-                    recommend=String.format("距离%s已经有%d天了，不如？",wordInfo.getClassification(),(currentTimeMillis()-wordInfo.getDate())/86400000);
+                    recommend=String.format("距离%s已经有%d天了，不如？",wordInfo.getWord(),(currentTimeMillis()-wordInfo.getDate())/86400000);
                     break;
                 default:
                     recommend=null;

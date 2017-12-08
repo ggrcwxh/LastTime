@@ -9,20 +9,20 @@ import static java.lang.System.currentTimeMillis;
 
 
 public class WordInfo extends AbstractInfo {
-        private String classification;
+        private String word;
         private long date;
 
-        public WordInfo(String classification,long date,int frequency){
+        public WordInfo(String word, long date, int frequency){
             super(frequency);
-            this.classification = classification;
+            this.word = word;
             this.date=date;
         }
-        public String getClassification() {
-            return classification;
+        public String getWord() {
+            return word;
         }
 
-        public void setClassification(String classification) {
-            this.classification = classification;
+        public void setWord(String word) {
+            this.word = word;
         }
 
         public long getDate() {
@@ -42,7 +42,7 @@ public class WordInfo extends AbstractInfo {
         }
     public String toString(){
         long day= (currentTimeMillis()-getDate())/86400000;
-        return String.format("离上一次:%s已经有%d天了",classification,day);
+        return String.format("离上一次:%s已经有%d天了", word,day);
     }
     }
 

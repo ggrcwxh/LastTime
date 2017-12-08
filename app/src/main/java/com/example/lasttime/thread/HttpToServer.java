@@ -66,7 +66,7 @@ public class HttpToServer extends Thread{
         List<WordInfo> list = databaseBiz.selectAllWord();
         boolean flag = false;
         for(WordInfo attribute : list){
-            if(wordInfo.getClassification().equals(attribute.getClassification())){
+            if(wordInfo.getWord().equals(attribute.getWord())){
                 databaseBiz.update();
                 flag=true;
             }
