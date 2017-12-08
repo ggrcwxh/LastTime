@@ -14,6 +14,11 @@
             android:layout_height="wrap_content"
             android:hint="请输入您想被记录的事情            "
             android:maxLines="5"/>
+        <TextView
+            android:id="@+id/input_record_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,16 +26,19 @@
             android:orientation="horizontal"
             >
             <Button
+                android:id="@+id/input_record_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="确定"
                 android:background="@null"/>
             <Button
+                android:id="@+id/input_record_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="返回"
                 android:background="@null"/>
             <Button
+                android:id="@+id/input_record_set_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="设置时间"
