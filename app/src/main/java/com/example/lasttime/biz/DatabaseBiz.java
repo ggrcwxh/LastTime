@@ -180,7 +180,18 @@ public class DatabaseBiz {
         }
         return wordInfos;
     }
-
+    public List<CommemorationInfo> selectAllCommemoration(){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        List<CommemorationInfo> list =new ArrayList<>();
+        Cursor cursor = db.query("COMMEMORATION", null, null, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                CommemorationInfo commemorationInfo = new CommemorationInfo(cursor.getString(0), cursor.getInt(1));
+                list.add(commemorationInfo);
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
     public synchronized void delete(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(table.equals("KITH_AND_KIN")){

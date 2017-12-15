@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 final List<AbstractInfo> infos =new ArrayList<>();
                 DatabaseBiz databaseBiz  = new DatabaseBiz(MainActivity.dbHelper);
+                List<CommemorationInfo> list =databaseBiz.selectAllCommemoration();
                 List<CallInfo> callInfos = databaseBiz.selectAllPhone();
                 List<PhotoInfo> photoInfos = databaseBiz.selectAllPhoto();
                 List<WordInfo> wordInfos = databaseBiz.selectAllWord();
