@@ -19,6 +19,7 @@ import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
 import com.example.lasttime.biz.CallInfoBiz;
 import com.example.lasttime.biz.DatabaseBiz;
+import com.example.lasttime.domain.CommemorationInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +52,13 @@ public class BlankActivity extends AppCompatActivity {
             editor.putFloat("call", (float)0.4);
             editor.putFloat("photo",(float)0.35);
             editor.putFloat("word", (float)0.25);
-            for(int i=0;i<18;i++){
-
+            String[] s = {"CallInfo","PhotoInfo","WordInfo"};
+            for(int i=0;i<3;i++){
+                for(int j=0;j<7;j++){
+                    CommemorationInfo commemorationInfo = new CommemorationInfo(s[i],j);
+                    DatabaseBiz databaseBiz  = new DatabaseBiz("COMMEMORATION",commemorationInfo,MainActivity.dbHelper);
+                    databaseBiz.insert();
+                }
             }
             editor.apply();
         }
