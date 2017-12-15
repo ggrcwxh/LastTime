@@ -118,6 +118,30 @@ public class MainActivity extends AppCompatActivity {
                 final List<AbstractInfo> infos =new ArrayList<>();
                 DatabaseBiz databaseBiz  = new DatabaseBiz(MainActivity.dbHelper);
                 List<CommemorationInfo> list =databaseBiz.selectAllCommemoration();
+                int[] time = {0,0,0,0,0,0,0};
+                int[] data = {0,0,0};
+                for(CommemorationInfo attribute:list){
+                    time[attribute.getDate()]++;
+                    if(attribute.getData().equals("CallInfo")){
+                        data[0]++;
+                    }
+                    else{
+                        if(attribute.getData().equals("PhotoInfo")){
+                            data[1]++;
+                        }
+                        else{
+                            if(attribute.getData().equals("WordInfo")){
+                                data[2]++;
+                            }
+                        }
+                    }
+                }
+                int[] p =new int[3];
+                int sumA=time[0]+time[1]+time[2]+time[3]+time[4]+time[5]+time[6];
+                int sumB=data[0]+data[1]+data[2];
+                p[0]=(time[Calendar.HOUR_OF_DAY/4]/sumA*time[Calendar.HOUR_OF_DAY/4]/sumA)/(data[0]/sumB);
+                p[1]=(time[Calendar.HOUR_OF_DAY/4]/sumA*time[Calendar.HOUR_OF_DAY/4]/sumA)/(data[1]/sumB);
+                p[2]=(time[Calendar.HOUR_OF_DAY/4]/sumA*time[Calendar.HOUR_OF_DAY/4]/sumA)/(data[2]/sumB);
                 List<CallInfo> callInfos = databaseBiz.selectAllPhone();
                 List<PhotoInfo> photoInfos = databaseBiz.selectAllPhoto();
                 List<WordInfo> wordInfos = databaseBiz.selectAllWord();
