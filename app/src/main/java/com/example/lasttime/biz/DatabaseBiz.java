@@ -32,6 +32,11 @@ public class DatabaseBiz {
         this.wordInfo=wordInfo;
         this.dbHelper=dbHelper;
     }
+    public DatabaseBiz(String table,CommemorationInfo commemorationInfo,LastTimeDatabaseHelper dbHelper){
+        this.table=table;
+        this.commemorationInfo=commemorationInfo;
+        this.dbHelper=dbHelper;
+    }
     public DatabaseBiz(String table, LastTimeDatabaseHelper dbHelper){
         this.table=table;
         this.dbHelper=dbHelper;
@@ -63,6 +68,12 @@ public class DatabaseBiz {
             values.put("classification",wordInfo.getWord());
             values.put("date",wordInfo.getDate());
             values.put("frequency",wordInfo.getFrequency()+1);
+            db.insert(table,null,values);
+        }
+        if(table.equals("COMMEMORATION")){
+            ContentValues values = new ContentValues();
+            values.put("data",commemorationInfo.getData());
+            values.put("date",commemorationInfo.getDate());
             db.insert(table,null,values);
         }
     }

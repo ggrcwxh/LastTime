@@ -34,6 +34,7 @@ import com.example.lasttime.biz.CallInfoBiz;
 import com.example.lasttime.biz.DatabaseBiz;
 import com.example.lasttime.domain.AbstractInfo;
 import com.example.lasttime.domain.CallInfo;
+import com.example.lasttime.domain.CommemorationInfo;
 import com.example.lasttime.domain.PhotoInfo;
 import com.example.lasttime.domain.RecordInfo;
 import com.example.lasttime.domain.WordInfo;
@@ -45,6 +46,7 @@ import com.example.lasttime.util.InitRecordList;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     //记录
     private List<RecordInfo> list = new ArrayList<>();
+    private int counter=0;
     @Override
     protected void onCreate(Bundle savedInstaceState) {
         super.onCreate(savedInstaceState);
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                List<AbstractInfo> infos =new ArrayList<>();
+                final List<AbstractInfo> infos =new ArrayList<>();
                 DatabaseBiz databaseBiz  = new DatabaseBiz(MainActivity.dbHelper);
                 List<CallInfo> callInfos = databaseBiz.selectAllPhone();
                 List<PhotoInfo> photoInfos = databaseBiz.selectAllPhoto();
@@ -126,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setPositiveButton("这是我想要的",new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog,int which){
+                        CommemorationInfo commemorationInfo = new CommemorationInfo(infos.get(counter).getClass().getSimpleName(),Calendar.HOUR_OF_DAY);
+                        DatabaseBiz databaseBiz  = new DatabaseBiz("COMMEMORATION",commemorationInfo,MainActivity.dbHelper);
+                        databaseBiz.insert();
+
 
                     }
                 });

@@ -7,12 +7,24 @@ package com.example.lasttime.domain;
 public class CommemorationInfo {
     private String data;
     private int date;
-    private float call;
-    private float pboto;
-    private float word;
-    public CommemorationInfo(String data,long date){
 
+    public CommemorationInfo(String data,int date){
+        this.data=data;
+        this.date=date;
+    }
+    public String getData() {
+        return data;
     }
 
+    public void setData(String data) {
+        this.data = data;
+    }
 
+    public int getDate() {
+        return date;
+    }
+
+    public void setDate(int date) {
+        this.date = date;
+    }
 }
