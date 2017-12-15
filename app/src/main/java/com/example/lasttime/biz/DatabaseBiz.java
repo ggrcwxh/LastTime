@@ -64,11 +64,17 @@ public class DatabaseBiz {
             db.insert(table,null,values);
         }
         if(table.equals("WORD")){
-            ContentValues values = new ContentValues();
-            values.put("classification",wordInfo.getWord());
-            values.put("date",wordInfo.getDate());
-            values.put("frequency",wordInfo.getFrequency()+1);
-            db.insert(table,null,values);
+            if(selectFrequency()!=-1){
+                update();
+            }
+            else{
+                ContentValues values = new ContentValues();
+                values.put("classification",wordInfo.getWord());
+                values.put("date",wordInfo.getDate());
+                values.put("frequency",wordInfo.getFrequency()+1);
+                db.insert(table,null,values);
+            }
+
         }
         if(table.equals("COMMEMORATION")){
             ContentValues values = new ContentValues();
@@ -131,7 +137,7 @@ public class DatabaseBiz {
                 return cursor.getLong(0);
             }
         }
-        return 0;
+        return -1;
     }
 
     //专门用来查询KITH_AND_KIN表中的所有行
