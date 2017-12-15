@@ -12,6 +12,8 @@ public  abstract  class AbstractInfo {
     public AbstractInfo(){
 
     }
+    public abstract void setWeight(int weight);
+    public abstract int getWeight();
     public abstract long getDate();
     public abstract int getFrequency() ;
     public abstract void setFrequency(int frequency) ;

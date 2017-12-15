@@ -64,7 +64,7 @@ public class DatabaseBiz {
             db.insert(table,null,values);
         }
         if(table.equals("WORD")){
-            if(selectFrequency()!=-1){
+            if(selectFrequency()!=0){
                 update();
             }
             else{
@@ -137,7 +137,7 @@ public class DatabaseBiz {
                 return cursor.getLong(0);
             }
         }
-        return -1;
+        return 0;
     }
 
     //专门用来查询KITH_AND_KIN表中的所有行

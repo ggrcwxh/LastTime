@@ -11,8 +11,17 @@ public class CallInfo extends AbstractInfo {
     private String call;
     private String num;
     private long date;
+    private int weight;
 
-    public  CallInfo(String num,long date){
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public  CallInfo(String num, long date){
         this.num=num;
         this.date=date;
     }

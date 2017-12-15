@@ -25,7 +25,7 @@ public class WordInfoBiz {
         Date date = calendar.getTime();
         long dateLong ;
         dateLong=date.getTime();
-        WordInfo wordInfo = buildWordInfo(word,dateLong,0);
+        WordInfo wordInfo = buildWordInfo(word,dateLong,1);
         DatabaseBiz databaseBiz = new DatabaseBiz("WORD",null,null,wordInfo, MainActivity.dbHelper);
         databaseBiz.insert();
     }

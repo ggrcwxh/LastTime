@@ -51,6 +51,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static java.lang.System.currentTimeMillis;
+
 /**
  * Created by ggrcwxh on 2017/10/27.
  *
@@ -148,9 +150,37 @@ public class MainActivity extends AppCompatActivity {
                 infos.addAll(callInfos);
                 infos.addAll(photoInfos);
                 infos.addAll(wordInfos);
+                for(AbstractInfo attribute:infos){
+                    int temp=0;
+                    int index = 0;
+                    String s = attribute.getClass().getName();
+                    if(s.equals("com.example.lasttime.domain.CallInfo")){
+                        temp=1;
+                        index=0;
+                    }
+                    if(s.equals("com.example.lasttime.domain.PhotoInfo")){
+                        temp=3;
+                        index=1;
+                    }
+                    if(s.equals("com.example.lasttime.domain.WordInfo")){
+                        temp=5;
+                        index=2;
+                    }
+                    attribute.setWeight((int)((currentTimeMillis()-attribute.getDate())/86400000*attribute.getFrequency()*temp*p[index]));
+                }
+                for(int i=0,j=i;i<infos.size()-1;j=++i){
+                    AbstractInfo info = infos.get(i+1);
+                    while(info.getWeight()<infos.get(j).getWeight()){
+                        infos.set(j+1,infos.get(j));
+                        if(j--==0)break;
+
+                    }
+                    infos.set(j+1,info);
+
+                }
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                 dialog.setTitle("推荐");
-                dialog.setMessage("测试，无信息");
+                dialog.setMessage(infos.get(counter).toString());
                 dialog.setPositiveButton("这是我想要的",new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog,int which){

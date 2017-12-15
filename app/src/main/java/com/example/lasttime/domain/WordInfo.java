@@ -11,8 +11,17 @@ import static java.lang.System.currentTimeMillis;
 public class WordInfo extends AbstractInfo {
         private String word;
         private long date;
+        private int weight;
 
-        public WordInfo(String word, long date, int frequency){
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public WordInfo(String word, long date, int frequency){
             super(frequency);
             this.word = word;
             this.date=date;

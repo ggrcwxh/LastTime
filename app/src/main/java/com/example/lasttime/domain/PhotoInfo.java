@@ -11,8 +11,17 @@ public class PhotoInfo extends AbstractInfo {
     private String place;
     private String photo_path;
     private long date;
+    private int weight;
 
-    public PhotoInfo(String place,String photo_path,long date,int frequency){
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public PhotoInfo(String place, String photo_path, long date, int frequency){
           super(frequency);
           this.place=place;
           this.photo_path=photo_path;
