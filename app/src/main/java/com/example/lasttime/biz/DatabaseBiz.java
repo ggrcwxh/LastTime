@@ -133,6 +133,7 @@ public class DatabaseBiz {
         }
         return 0;
     }
+
     //专门用来查询KITH_AND_KIN表中的所有行
     public List<CallInfo> selectAllPhone() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();

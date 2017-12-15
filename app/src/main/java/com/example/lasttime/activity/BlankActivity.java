@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
 import com.example.lasttime.biz.CallInfoBiz;
+import com.example.lasttime.biz.DatabaseBiz;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,9 @@ public class BlankActivity extends AppCompatActivity {
             editor.putFloat("call", (float)0.4);
             editor.putFloat("photo",(float)0.35);
             editor.putFloat("word", (float)0.25);
+            for(int i=0;i<18;i++){
+
+            }
             editor.apply();
         }
         /**
