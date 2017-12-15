@@ -31,7 +31,12 @@ import com.example.lasttime.MyApplication;
 import com.example.lasttime.R;
 import com.example.lasttime.adapter.RecordAdapter;
 import com.example.lasttime.biz.CallInfoBiz;
+import com.example.lasttime.biz.DatabaseBiz;
+import com.example.lasttime.domain.AbstractInfo;
+import com.example.lasttime.domain.CallInfo;
+import com.example.lasttime.domain.PhotoInfo;
 import com.example.lasttime.domain.RecordInfo;
+import com.example.lasttime.domain.WordInfo;
 import com.example.lasttime.thread.HttpToServer;
 import com.example.lasttime.biz.PhotoExifBiz;
 import com.example.lasttime.biz.RecommendBiz;
@@ -101,13 +106,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,SetActivity.class);
-
                 startActivity(intent);
             }
         });
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                List<AbstractInfo> infos =new ArrayList<>();
+                DatabaseBiz databaseBiz  = new DatabaseBiz(MainActivity.dbHelper);
+                List<CallInfo> callInfos = databaseBiz.selectAllPhone();
+                List<PhotoInfo> photoInfos = databaseBiz.selectAllPhoto();
+                List<WordInfo> wordInfos = databaseBiz.selectAllWord();
+                infos.addAll(callInfos);
+                infos.addAll(photoInfos);
+                infos.addAll(wordInfos);
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                 dialog.setTitle("测试");
                 dialog.setMessage("测试，无信息");

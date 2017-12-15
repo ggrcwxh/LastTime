@@ -31,10 +31,7 @@ public class LastTimeDatabaseHelper extends SQLiteOpenHelper {
             +")";
     private static final String CREATE_COMMEMORATION="create table COMMEMORATION ("
             +"data text primary key,"
-            +"date integer,"
-            +"call real"
-            +"photo real"
-            +"word real"
+            +"date integer"
             +")";
     public LastTimeDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context,name,factory,version);
