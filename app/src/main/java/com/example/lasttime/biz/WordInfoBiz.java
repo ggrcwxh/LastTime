@@ -3,10 +3,11 @@ package com.example.lasttime.biz;
 import com.example.lasttime.activity.MainActivity;
 import com.example.lasttime.domain.WordInfo;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by 67014 on 2017/12/8.
+ * Created by ggrcwxh on 2017/12/8.
  */
 
 public class WordInfoBiz {
@@ -19,7 +20,9 @@ public class WordInfoBiz {
         this.word=word;
     }
     public void insertToDatabase(){
-        Date date = new Date(year,month,day);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month,day);
+        Date date = calendar.getTime();
         long dateLong ;
         dateLong=date.getTime();
         WordInfo wordInfo = buildWordInfo(word,dateLong,0);

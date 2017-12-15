@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by 67014 on 2017/12/8.
+ * Created by ggrcwxh on 2017/12/8.
  */
 
 public class WriteRecordActivity extends AppCompatActivity {
@@ -29,6 +29,12 @@ public class WriteRecordActivity extends AppCompatActivity {
         super.onCreate(savedInstaceState);
         setContentView(R.layout.abc_input_record);
         final TextView textView = (TextView)findViewById(R.id.input_record_text);
+        String timeStamp = new java.text.SimpleDateFormat("yyyy-MM-dd")
+                .format(new Date());
+        String[] sp = timeStamp.split("-");
+        year=Integer.valueOf(sp[0]);
+        month=Integer.valueOf(sp[1]);
+        day=Integer.valueOf(sp[2]);
         textView.setText(year+":"+month+":"+day);
         getDate();
         Button confirm = (Button)findViewById(R.id.input_record_confirm);
@@ -43,6 +49,7 @@ public class WriteRecordActivity extends AppCompatActivity {
                 wordInfoBiz.insertToDatabase();
                 Intent intent =new Intent(WriteRecordActivity.this,MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
